@@ -20,6 +20,13 @@ export const config = {
   },
 };
 
+export const customConfig = {
+  slot1: {
+    x: 1075,
+    y: 20
+  }
+}
+
 export const inventory = {
   robot:{
     text: `I used to be a robot`
@@ -38,5 +45,8 @@ export const inventory = {
   },
   light: {
     isOn: false
+  },
+  billboard: {
+    text: `My old billboard... it's broken. I no longer remember what it advertised`
   }
 };

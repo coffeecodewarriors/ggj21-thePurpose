@@ -1,4 +1,4 @@
-import { config } from '../config.js'
+import { config, customConfig } from '../config.js'
 import { Player } from '../player/player.js'
 
 export class Scene1 extends Phaser.Scene {
@@ -154,8 +154,8 @@ export class Scene1 extends Phaser.Scene {
         this.battery = this.items.create(0, 0, 'battery').setInteractive().setImmovable()
         this.battery.setOrigin(0,0)
         if(this.inventory.battery.isPicked){
-            this.battery.x = 1075
-            this.battery.y = 20
+            this.battery.x = customConfig.slot1.x
+            this.battery.y = customConfig.slot1.y
             if(this.inventory.battery.isUsed){
                 this.battery.visible = false
                 return
@@ -179,8 +179,8 @@ export class Scene1 extends Phaser.Scene {
         this.battery.on('pointerdown', () => {
             if(this.collisionBattery && !this.inventory.battery.isPicked){
                 this.inventory.battery.isPicked = true
-                this.battery.x = 1075
-                this.battery.y = 20
+                this.battery.x = customConfig.slot1.x
+                this.battery.y = customConfig.slot1.y
             }
         })
     }

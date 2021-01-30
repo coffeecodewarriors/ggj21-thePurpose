@@ -34,6 +34,9 @@ export class Scene2 extends Phaser.Scene {
             repeat: -1
         })
 
+        // billboard
+        this.createBillboard()
+
         // items
         this.items = this.physics.add.group()
 
@@ -43,12 +46,23 @@ export class Scene2 extends Phaser.Scene {
         // item
         this.createItem()
 
-        this.player = this.physics.add.existing(new Player(this.configPlayer))
-        this.input.on('pointerdown', this.player.movePlayer, this)
-        this.pointer = this.input.mousePointer
+        // player
+        this.createPlayer()
+        
     }
     update = () => {
         this.player.stopPlayer(this.target)
+    }
+    createPlayer = () => {
+        this.player = this.physics.add.existing(new Player(this.configPlayer))
+        this.player.body.setCollideWorldBounds(true)
+        this.player.body.setBoundsRectangle(new Phaser.Geom.Rectangle(20, 250, 1280, 720))
+        this.player.body.onWorldBounds = true
+        this.physics.world.on('worldbounds', () => {
+            this.player.stopPlayer()
+        })
+        this.input.on('pointerdown', this.player.movePlayer, this)
+        this.pointer = this.input.mousePointer
     }
     createBattery = () => {
         this.battery = this.items.create(0, 0, 'battery').setInteractive()
@@ -62,6 +76,18 @@ export class Scene2 extends Phaser.Scene {
                 this.battery.visible = false
             }
         }
+    }
+    createBillboard = () => {
+        this.billboard = this.add.image(0, 0, 'billboard').setInteractive()
+        this.billboard.setOrigin(0, 0)
+        this.billboard.x = 178
+        this.billboard.y = 70
+        this.billboard.alpha = 0.5
+        this.billboard.on('pointerover', () => {
+        })
+        this.billboard.on('pointerout', () => {
+        })
+
     }
     createItem = () => {
         if(this.inventory.item.isPicked){
