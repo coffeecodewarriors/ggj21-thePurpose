@@ -122,7 +122,7 @@ export class Scene1 extends Phaser.Scene {
         this.battery.on('pointerdown', () => {
             if(this.collisionBattery && !this.inventory.battery.isPicked){
                 this.inventory.battery.isPicked = true
-                this.battery.x = customConfig.slot1.x
+                this.battery.x = customConfig.slot1.x + 5
                 this.battery.y = customConfig.slot1.y
             }
         })
@@ -164,14 +164,19 @@ export class Scene1 extends Phaser.Scene {
         }
     }
     createPcb = () => {
+        this.pcb = this.items.create(0, 0, 'pcb').setInteractive().setImmovable()
+        this.pcb.setOrigin(0,0)
         if(!this.inventory.pcb.isPicked){
-            this.pcb = this.items.create(0, 0, 'pcb').setInteractive().setImmovable()
-            this.pcb.setOrigin(0,0)
-            this.pcb.x = 548,
-            this.pcb.y = 377
-        }else{
-            this.pcb.x = customConfig.slot1.x + 50
-            this.pcb.y = customConfig.slot1.y
+            this.pcb.x = 530,
+            this.pcb.y = 368
+        }
+        else{
+            this.pcb.x = customConfig.slot1.x + 73
+            this.pcb.y = customConfig.slot1.y + 5
+            this.pcb.visible = true
+            if(this.inventory.pcb.isUsed){
+                this.pcb.visible = false
+            }
         }
         this.pcb.on('pointerover', () => {
             this.pcb.alpha = 0.5
@@ -184,16 +189,10 @@ export class Scene1 extends Phaser.Scene {
         this.pcb.on('pointerdown', () => {
             if(this.collisionPcb && !this.inventory.pcb.isPicked){
                 this.inventory.pcb.isPicked = true
-                this.pcb.x = customConfig.slot1.x + 75
-                this.pcb.y = customConfig.slot1.y
+                this.pcb.x = customConfig.slot1.x + 73
+                this.pcb.y = customConfig.slot1.y + 5
             }
         })
-        if(this.inventory.pcb.isPicked){
-            this.pcb.visible = true
-            if(this.inventory.pcb.isUsed){
-                this.pcb.visible = false
-            }
-        }
     }
     createControlPanel = () => {
         this.controlPanel = this.add.image(0, 0, 'control-panel').setInteractive()

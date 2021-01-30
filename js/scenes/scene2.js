@@ -58,10 +58,12 @@ export class Scene2 extends Phaser.Scene {
         // battery
         this.createBattery()
 
-        // item
+        // microchip
         if(this.inventory.microchip.isPicked){
             this.createMicrochip()
         }
+        // pcb
+        this.createPcb()
 
         // polygons
         this.createPolygons()
@@ -199,7 +201,7 @@ export class Scene2 extends Phaser.Scene {
             this.microchip.y = customConfig.slot1.y
             return
         }else {
-            this.microchip.x = 600
+            this.microchip.x = 570
             this.microchip.y = 550
         }
         this.light.visible ? this.microchip.visible = true : this.microchip.visible = false
@@ -219,6 +221,26 @@ export class Scene2 extends Phaser.Scene {
                 this.microchip.y = customConfig.slot1.y
             }
         })
+    }
+    createPcb = () => {
+        if(this.inventory.pcb.isPicked){
+            this.pcb = this.items.create(0, 0, 'pcb').setInteractive().setImmovable()
+            this.pcb.setOrigin(0,0)
+            this.pcb.x = customConfig.slot1.x + 73
+            this.pcb.y = customConfig.slot1.y + 5
+            if(this.inventory.pcb.isUsed){
+                this.pcb.visible = false
+                return
+            }
+            this.pcb.on('pointerover', () => {
+                this.pcb.alpha = 0.5
+                this.pcbText = this.add.text(config.width/2, customConfig.text.y, this.inventory.pcb.text, customConfig.fontText).setOrigin(0.5)
+            })
+            this.pcb.on('pointerout', () => {
+                this.pcb.alpha = 1
+                this.pcbText.destroy(this.pcbText.x, this.pcbText.y)
+            })
+        }
     }
 
     createPolygons = () => {
