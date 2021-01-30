@@ -29,10 +29,14 @@ export const inventory = {
   },
   battery:{
     text: `A battery`,
-    isPicked: false
+    isPicked: false,
+    isUsed: false
   },
   item: {
     text: 'I am an item',
     isPicked: false
+  },
+  light: {
+    isOn: false
   }
 };

@@ -51,9 +51,7 @@ export class Scene1 extends Phaser.Scene {
         this.createPlayer()
 
         // light
-        this.light = this.add.image(0,0, 'robot-light')
-        this.light.setOrigin(0,0)
-        this.light.visible = false
+        this.createLight()
 
         this.ui = this.add.image(config.width/2, config.height/2, 'ui')
 
@@ -117,6 +115,16 @@ export class Scene1 extends Phaser.Scene {
         })
     }
 
+    createLight = () => {
+        this.light = this.add.image(0,0, 'robot-light')
+        this.light.setOrigin(0,0)
+        this.light.visible = false
+        if(this.inventory.battery.isUsed){
+            this.light.visible = true
+            return
+        }
+    }
+
     createLaptop = () => {
         this.laptop = this.items.create(0,0, 'laptop').setInteractive().setImmovable()
         this.laptop.setOrigin(0,0)
@@ -128,6 +136,7 @@ export class Scene1 extends Phaser.Scene {
                     this.light.visible ? null : this.light.visible = true
                     this.battery.visible ? this.battery.visible = false : null
                     this.item.visible ? null : this.item.visible = true
+                    this.inventory.battery.isUsed = true
                 }
             })
             this.laptop.on('pointerover', () => {
@@ -144,6 +153,15 @@ export class Scene1 extends Phaser.Scene {
     createBattery = () => {
         this.battery = this.items.create(0, 0, 'battery').setInteractive().setImmovable()
         this.battery.setOrigin(0,0)
+        if(this.inventory.battery.isPicked){
+            this.battery.x = 1075
+            this.battery.y = 20
+            if(this.inventory.battery.isUsed){
+                this.battery.visible = false
+                return
+            }
+            return
+        }
         this.battery.x = 300
         this.battery.y = 550
 
@@ -169,9 +187,14 @@ export class Scene1 extends Phaser.Scene {
     createItem = () => {
         this.item = this.items.create(0,0, 'battery').setInteractive().setImmovable()
         this.item.setOrigin(0,0)
-        this.item.x = 750
+        if(this.inventory.item.isPicked){
+            this.item.x = 1150
+            this.item.y = 20
+            return
+        }
+        this.item.x = 600
         this.item.y = 550
-        this.item.visible = false
+        this.light.visible ? this.item.visible = true : this.item.visible = false
 
         this.item.on('pointerover', () => {
             this.item.alpha = 0.5

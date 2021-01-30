@@ -37,6 +37,9 @@ export class Scene2 extends Phaser.Scene {
         // items
         this.items = this.physics.add.group()
 
+        // battery
+        this.createBattery()
+
         // item
         this.createItem()
 
@@ -46,6 +49,19 @@ export class Scene2 extends Phaser.Scene {
     }
     update = () => {
         this.player.stopPlayer(this.target)
+    }
+    createBattery = () => {
+        this.battery = this.items.create(0, 0, 'battery').setInteractive()
+        this.battery.setOrigin(0,0)
+        this.battery.x = 1075
+        this.battery.y = 20
+        this.battery.visible = false
+        if(this.inventory.battery.isPicked){
+            this.battery.visible = true
+            if(this.inventory.battery.isUsed){
+                this.battery.visible = false
+            }
+        }
     }
     createItem = () => {
         if(this.inventory.item.isPicked){
