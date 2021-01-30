@@ -8,7 +8,7 @@ export class Scene1 extends Phaser.Scene {
         this.configPlayer = {
             scene: this,
             x: config.width - 80,
-            y: config.height - 50
+            y: config.height - 150
         }
         this.inventory = {}
         this.collisionLaptop = false
@@ -16,12 +16,11 @@ export class Scene1 extends Phaser.Scene {
         this.collisionItem = false
     }
     init = (data) => {
-        console.log(data)
         if(data.inventory){
             this.inventory = data.inventory
         }
         if(data.scene === 'scene2'){
-            this.configPlayer.x = 70
+            this.configPlayer.x = 100
             return
         }
     }
@@ -74,13 +73,14 @@ export class Scene1 extends Phaser.Scene {
     createPlayer = () => {
         this.player = this.physics.add.existing(new Player(this.configPlayer))
         this.player.body.setCollideWorldBounds(true)
-        this.player.body.setBoundsRectangle(new Phaser.Geom.Rectangle(0, 360, 1280, 720))
+        this.player.body.setBoundsRectangle(new Phaser.Geom.Rectangle(20, 250, 1280, 720))
         this.player.body.onWorldBounds = true
         this.physics.world.on('worldbounds', () => {
             this.player.stopPlayer()
         },this)
         this.input.on('pointerdown', this.player.movePlayer, this)
         this.pointer = this.input.mousePointer
+        console.log(this.player)
     }
 
     createColliders = () => {
@@ -90,12 +90,10 @@ export class Scene1 extends Phaser.Scene {
         })
         this.collisionLaptop = false
         this.physics.add.overlap(this.player, this.battery, () => {
-            // this.player.stopPlayer()
             this.collisionBattery = true
         })
         this.collisionBattery = false
         this.physics.add.overlap(this.player, this.item, () => {
-            // this.player.stopPlayer()
             this.collisionItem = true
         })
         this.collisionItem = false
@@ -128,6 +126,8 @@ export class Scene1 extends Phaser.Scene {
             this.laptop.on('pointerdown', () => {
                 if(this.collisionLaptop){
                     this.light.visible ? null : this.light.visible = true
+                    this.battery.visible ? this.battery.visible = false : null
+                    this.item.visible ? null : this.item.visible = true
                 }
             })
             this.laptop.on('pointerover', () => {
@@ -171,6 +171,7 @@ export class Scene1 extends Phaser.Scene {
         this.item.setOrigin(0,0)
         this.item.x = 750
         this.item.y = 550
+        this.item.visible = false
 
         this.item.on('pointerover', () => {
             this.item.alpha = 0.5

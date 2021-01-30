@@ -43,7 +43,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 stop()
             }
         }
-        if(this.scene.player.x <= 50){
+        if(this.scene.player.x <= 75){
             stop()
             this.changeScene(this.scene.player.scene, 'left')
         }else if(this.scene.player.x >= 1250){
@@ -53,15 +53,17 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     changeScene = (currentScene, direction) => {
         if(currentScene.scene.key === 'scene1'){
             if(direction === 'left'){
-                this.scene.player.x <= 50
+                // this.scene.player.x <= 50
                 currentScene.game.scene.stop('scene1')
-                currentScene.game.scene.start('scene2', currentScene)
+                currentScene.game.scene.start('scene2', {
+                    scene: 'scene1',
+                    inventory: currentScene.inventory
+                })
                 return
             }
             if(direction === 'right'){
                 this.scene.player.x >= 1250
-                currentScene.game.scene.stop('scene1')
-                currentScene.game.scene.start('scene3', currentScene)
+                console.log('no se puede avanzar más')
                 return
             }
         }else if(currentScene.scene.key === 'scene2'){
