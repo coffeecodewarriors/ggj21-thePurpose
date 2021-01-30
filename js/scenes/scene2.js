@@ -13,7 +13,7 @@ export class Scene2 extends Phaser.Scene {
         this.inventory = {}
         this.collisionLaptop = false
         this.collisionBattery = false
-        this.collisionItem = false
+        this.collisionMicrochip = false
     }
     init = (data) => {
         if(data.inventory){
@@ -59,13 +59,26 @@ export class Scene2 extends Phaser.Scene {
         this.createBattery()
 
         // item
-        this.createItem()
+        if(this.inventory.microchip.isPicked){
+            this.createMicrochip()
+        }
+
+        // polygons
+        // this.createPolygons()
 
         // collider
         this.createColliders()
+
+        // debuger pointer
+        this.createDebugPointer()
     }
+
+    // --- END CREATE METHOD ---
+
     update(){
         this.player.stopPlayer(this.target)
+       // debuger pointer
+       this.updateDebugPointer()
     }
 
     createPlayer = () => {
@@ -87,14 +100,16 @@ export class Scene2 extends Phaser.Scene {
             this.collisionLaptop = true
         })
         this.collisionLaptop = false
+
         this.physics.add.overlap(this.player, this.battery, () => {
             this.collisionBattery = true
         })
         this.collisionBattery = false
-        this.physics.add.overlap(this.player, this.item, () => {
-            this.collisionItem = true
+
+        this.physics.add.overlap(this.player, this.microchip, () => {
+            this.collisionMicrochip = true
         })
-        this.collisionItem = false
+        this.collisionMicrochip = false
     }
 
     createRobot = () => {
@@ -132,11 +147,13 @@ export class Scene2 extends Phaser.Scene {
         this.laptop.y = 543
         this.laptop.inputEnabled = true
             this.laptop.on('pointerdown', () => {
-                if(this.collisionLaptop && this.inventory.battery.isPicked){
+                if(this.collisionLaptop && this.inventory.battery.isPicked && !this.inventory.microchip.isPicked){
                     this.light.visible ? null : this.light.visible = true
                     this.battery.visible ? this.battery.visible = false : null
-                    this.item.visible ? null : this.item.visible = true
+                    // this.microchip.visible ? null : this.microchip.visible = true
                     this.inventory.battery.isUsed = true
+                    this.createMicrochip()
+                    this.createColliders()
                 }
             })
             this.laptop.on('pointerover', () => {
@@ -154,16 +171,12 @@ export class Scene2 extends Phaser.Scene {
         if(this.inventory.battery.isPicked){
             this.battery = this.items.create(0, 0, 'battery').setInteractive().setImmovable()
             this.battery.setOrigin(0,0)
-            if(this.inventory.battery.isPicked){
                 this.battery.x = customConfig.slot1.x
                 this.battery.y = customConfig.slot1.y
                 if(this.inventory.battery.isUsed){
                     this.battery.visible = false
                     return
                 }
-                return
-            }
-    
             this.battery.on('pointerover', () => {
                 this.battery.alpha = 0.5
                 this.batteryText = this.add.text(300, 680, this.inventory.battery.text, {
@@ -184,35 +197,64 @@ export class Scene2 extends Phaser.Scene {
             })
         }
     }
-    createItem = () => {
-        this.item = this.items.create(0,0, 'battery').setInteractive().setImmovable()
-        this.item.setOrigin(0,0)
-        if(this.inventory.item.isPicked){
-            this.item.x = 1150
-            this.item.y = 20
+    createMicrochip = () => {
+        this.microchip = this.items.create(0,0, 'microchip').setInteractive().setImmovable()
+        this.microchip.setOrigin(0,0)
+        if(this.inventory.microchip.isPicked){
+            this.microchip.x = customConfig.slot1.x
+            this.microchip.y = customConfig.slot1.y
             return
+        }else {
+            this.microchip.x = 600
+            this.microchip.y = 550
         }
-        this.item.x = 600
-        this.item.y = 550
-        this.light.visible ? this.item.visible = true : this.item.visible = false
+        this.light.visible ? this.microchip.visible = true : this.microchip.visible = false
 
-        this.item.on('pointerover', () => {
-            this.item.alpha = 0.5
-            this.itemText = this.add.text(300, 680, this.inventory.battery.text, {
+        this.microchip.on('pointerover', () => {
+            this.microchip.alpha = 0.5
+            this.microchipText = this.add.text(300, 680, this.inventory.microchip.text, {
                 font: '25px Arial',
                 fill: 'white'
             })
         })
-        this.item.on('pointerout', () => {
-            this.item.alpha = 1
-            this.itemText.destroy(this.itemText.x, this.itemText.y)
+        this.microchip.on('pointerout', () => {
+            this.microchip.alpha = 1
+            this.microchipText.destroy(this.microchipText.x, this.microchipText.y)
         })
-        this.item.on('pointerdown', () => {
-            if(this.collisionItem && !this.inventory.item.isPicked){
-                this.inventory.item.isPicked = true
-                this.item.x = 1150
-                this.item.y = 20
+        this.microchip.on('pointerdown', () => {
+            if(this.collisionMicrochip && !this.inventory.microchip.isPicked){
+                this.inventory.microchip.isPicked = true
+                this.microchip.x = customConfig.slot1.x
+                this.microchip.y = customConfig.slot1.y
             }
         })
+    }
+
+    createPolygons = () => {
+        const depuradoraPoly = new Phaser.Geom.Polygon([
+            532, 320,
+            532, 490,
+            593, 524,
+            643, 473,
+            612, 333,
+            580, 305
+        ])
+        depuradoraPoly.setInteractive()
+
+    }
+
+    // --- DEBUGGER ---
+    createDebugPointer = () => {
+        this.debugText = this.add.text(10, 10, '', {
+            font: '16px Courier',
+            fill: 'red'
+        })
+    }
+    updateDebugPointer = () => {
+        let p = this.input.activePointer
+        this.debugText.setText([
+            'x: ' + p.x,
+            'y: ' + p.y
+        ])
     }
 }

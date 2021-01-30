@@ -22,7 +22,7 @@ export const config = {
 
 export const customConfig = {
   slot1: {
-    x: 1075,
+    x: 1070,
     y: 20
   },
   text:{
@@ -37,7 +37,7 @@ export const customConfig = {
 
 export const inventory = {
   robot:{
-    text: `I used to be a robot... It looks like it has a big lens in the center`
+    text: `"I used to be a robot..." It looks like it has a big lens in the center`
   },
   laptop:{
     text: `An old laptot. Need some battery...`
@@ -47,9 +47,10 @@ export const inventory = {
     isPicked: false,
     isUsed: false
   },
-  item: {
-    text: 'I am an item',
-    isPicked: false
+  microchip: {
+    text: 'A microchip. It was hidden in the dark...',
+    isPicked: false,
+    isUsed: false
   },
   light: {
     isOn: false

@@ -51,17 +51,22 @@ export class Scene1 extends Phaser.Scene {
         this.createBattery()
 
         // item
-        this.createItem()
+        this.createMicrochip()
 
         // player
         this.createPlayer()
 
         // colliders
         this.createColliders()
+
+        // debugger
+        this.createDebugPointer()
         
     }
     update = () => {
         this.player.stopPlayer(this.target)
+
+        this.updateDebugPointer()
     }
     createPlayer = () => {
         this.player = this.physics.add.existing(new Player(this.configPlayer))
@@ -81,10 +86,12 @@ export class Scene1 extends Phaser.Scene {
         this.collisionBattery = false
     }
     createBattery = () => {
-        this.battery = this.items.create(0, 0, 'battery').setInteractive().setImmovable()
-        this.battery.setOrigin(0,0)
-        this.battery.x = 300
-        this.battery.y = 550
+        if(!this.inventory.battery.isPicked){
+            this.battery = this.items.create(0, 0, 'battery').setInteractive().setImmovable()
+            this.battery.setOrigin(0,0)
+            this.battery.x = 300
+            this.battery.y = 550
+        }
         if(this.inventory.battery.isPicked){
             this.battery.x = customConfig.slot1.x
             this.battery.y = customConfig.slot1.y
@@ -127,22 +134,22 @@ export class Scene1 extends Phaser.Scene {
         })
 
     }
-    createItem = () => {
-        if(this.inventory.item.isPicked){
-            this.item = this.items.create(0, 0, 'battery').setInteractive().setImmovable()
-            this.item.setOrigin(0, 0)
-            this.item.x = 1150
-            this.item.y = 20
-            this.item.on('pointerover', () => {
-                this.item.alpha = 0.5
-                this.itemText = this.add.text(300, 680, this.inventory.battery.text, {
+    createMicrochip = () => {
+        if(this.inventory.microchip.isPicked){
+            this.microchip = this.items.create(0, 0, 'microchip').setInteractive().setImmovable()
+            this.microchip.setOrigin(0, 0)
+            this.microchip.x = customConfig.slot1.x
+            this.microchip.y = customConfig.slot1.y
+            this.microchip.on('pointerover', () => {
+                this.microchip.alpha = 0.5
+                this.microchipText = this.add.text(300, 680, this.inventory.microchip.text, {
                     font: '25px Arial',
                     fill: 'white'
                 })
             })
-            this.item.on('pointerout', () => {
-                this.item.alpha = 1
-                this.itemText.destroy(this.itemText.x, this.itemText.y)
+            this.microchip.on('pointerout', () => {
+                this.microchip.alpha = 1
+                this.microchipText.destroy(this.microchipText.x, this.microchipText.y)
             })
         }
     }
@@ -169,4 +176,19 @@ export class Scene1 extends Phaser.Scene {
             this.omaticText.destroy(this.omaticText.x, this.omaticText.y)
         })
     }
+
+        // --- DEBUGGER ---
+        createDebugPointer = () => {
+            this.debugText = this.add.text(10, 10, '', {
+                font: '16px Courier',
+                fill: 'red'
+            })
+        }
+        updateDebugPointer = () => {
+            let p = this.input.activePointer
+            this.debugText.setText([
+                'x: ' + p.x,
+                'y: ' + p.y
+            ])
+        }
 }

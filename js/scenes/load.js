@@ -18,7 +18,7 @@ export class Load extends Phaser.Scene {
         this.load.image('omatic', '../../assets/img/control-O-matic-3000.png')
 
         this.load.image('battery', '../../assets/img/laptop-battery.png')
-        this.load.image('item', '../../assets/img/laptop-battery.png')
+        this.load.image('microchip', '../../assets/img/microchip.png')
 
         this.load.spritesheet('player', '../../assets/img/player-sprite.png', {
             frameWidth: 98,
