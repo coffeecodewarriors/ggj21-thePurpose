@@ -194,15 +194,19 @@ export class Scene2 extends Phaser.Scene {
         }
     }
     createMicrochip = () => {
-        this.microchip = this.items.create(0,0, 'microchip').setInteractive().setImmovable()
-        this.microchip.setOrigin(0,0)
+        if(!this.inventory.microchip.isPicked) {
+            this.microchip = this.items.create(0,0, 'microchip').setInteractive().setImmovable()
+            this.microchip.setOrigin(0,0)
+            this.microchip.x = 570
+            this.microchip.y = 550
+        }
         if(this.inventory.microchip.isPicked){
             this.microchip.x = customConfig.slot1.x
             this.microchip.y = customConfig.slot1.y
-            return
-        }else {
-            this.microchip.x = 570
-            this.microchip.y = 550
+            this.microchip.visible = true
+            if(this.inventory.microchip.isUsed){
+                this.microchip.visible = false
+            }
         }
         this.light.visible ? this.microchip.visible = true : this.microchip.visible = false
 
@@ -239,6 +243,25 @@ export class Scene2 extends Phaser.Scene {
             this.pcb.on('pointerout', () => {
                 this.pcb.alpha = 1
                 this.pcbText.destroy(this.pcbText.x, this.pcbText.y)
+            })
+        }
+    }
+    createController = () => {
+        if(this.inventory.controller.isDone){
+            this.controller = this.items.create(0, 0, 'controller').setInteractive().setImmovable()
+            this.controller.setOrigin(0, 0)
+            this.controller.x = customConfig.slot1.x + 3
+            this.controller.y = customConfig.slot1.y + 10
+            if(this.inventory.controller.isUsed){
+                this.controller.visible = false
+                return
+            }
+            this.controller.on('pointerover', () => {
+                this.controller.alpha = 0.5
+                this.controllerText = this.add.text(config.width/2, customConfig.text.y, this.inventory.controller.text, customConfig.fontText).setOrigin(0.5)
+            })
+            this.controller.on('pointerout', () => {
+                this.controllerText.destroy(this.controllerText.x, this.controllerText.y)
             })
         }
     }

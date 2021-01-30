@@ -13,6 +13,7 @@ export class Scene1 extends Phaser.Scene {
         this.inventory = {}
         this.collisionBattery = false
         this.collisionPcb = false
+        this.collisionOmatic = false
     }
     init = (data) => {
         this.inventory = data.inventory
@@ -42,11 +43,11 @@ export class Scene1 extends Phaser.Scene {
         // control panel
         this.createControlPanel()
 
-        // o-matic 3000
-        this.createOmatic()
-
         // items
         this.items = this.physics.add.group()
+
+        // o-matic 3000
+        this.createOmatic()
 
         // battery
         this.createBattery()
@@ -56,6 +57,11 @@ export class Scene1 extends Phaser.Scene {
 
         // PCB
         this.createPcb()
+
+        // controller
+        if(this.inventory.controller.isDone){
+            this.createController()
+        }
 
         // player
         this.createPlayer()
@@ -88,6 +94,12 @@ export class Scene1 extends Phaser.Scene {
         this.pointer = this.input.mousePointer
     }
     createColliders = () => {
+        this.physics.add.collider(this.player, this.omatic, () => {
+            this.player.stopPlayer()
+            this.collisionOmatic = true
+        })
+        this.collisionOmatic = false
+
         this.physics.add.overlap(this.player, this.battery, () => {
             this.collisionBattery = true
         })
@@ -148,7 +160,7 @@ export class Scene1 extends Phaser.Scene {
 
     }
     createMicrochip = () => {
-        if(this.inventory.microchip.isPicked){
+        if(this.inventory.microchip.isPicked && !this.inventory.microchip.isUsed){
             this.microchip = this.items.create(0, 0, 'microchip').setInteractive().setImmovable()
             this.microchip.setOrigin(0, 0)
             this.microchip.x = customConfig.slot1.x
@@ -207,15 +219,32 @@ export class Scene1 extends Phaser.Scene {
         })
     }
     createOmatic = () => {
-        this.omatic = this.add.image(0,0, 'omatic').setInteractive()
+        this.omatic = this.items.create(0,0, 'omatic').setInteractive().setImmovable()
         this.omatic.setOrigin(0,0)
         this.omatic.y = 340
+        this.omatic.inputEnabled = true
+        this.omatic.on('pointerdown', () => {
+            if(this.collisionOmatic && this.inventory.microchip.isPicked && this.inventory.pcb.isPicked){
+                this.microchip.visible ? this.microchip.visible = false : null
+                this.pcb.visible ? this.pcb.visible = false : null
+                this.inventory.microchip.isUsed = true
+                this.inventory.pcb.isUsed = true
+                this.createController()
+                this.inventory.controller.isDone = true
+            }
+        })
         this.omatic.on('pointerover', () => {
             this.omaticText = this.add.text(config.width/2, customConfig.text.y, this.inventory.omatic.text, customConfig.fontText).setOrigin(0.5)
         })
         this.omatic.on('pointerout', () => {
             this.omaticText.destroy(this.omaticText.x, this.omaticText.y)
         })
+    }
+    createController = () => {
+        this.controller = this.items.create(0, 0, 'controller').setInteractive()
+        this.controller.setOrigin(0,0)
+        this.controller.x = customConfig.slot1.x + 3
+        this.controller.y = customConfig.slot1.y + 10
     }
 
     createPolygons = () => {

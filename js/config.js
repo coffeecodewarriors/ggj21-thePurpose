@@ -62,6 +62,12 @@ export const inventory = {
     isPicked: false,
     isUsed: false
   },
+  controller: {
+    text: `A fully and operational controller`,
+    isPicked: true,
+    isUsed: false,
+    isDone: false
+  },
   billboard: {
     text: `My old billboard... it's broken. I no longer remember what it advertised`
   },
