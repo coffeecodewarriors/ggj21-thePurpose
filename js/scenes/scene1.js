@@ -12,6 +12,8 @@ export class Scene1 extends Phaser.Scene {
         }
         this.inventory = {}
         this.collisionLaptop = false
+        this.collisionBattery = false
+        this.collisionItem = false
     }
     init = (data) => {
         if(data.inventory){
@@ -38,6 +40,66 @@ export class Scene1 extends Phaser.Scene {
         this.items = this.physics.add.group()
 
         // robot
+        this.createRobot()
+
+        // laptop
+        this.createLaptop()
+            
+
+        // player
+        this.createPlayer()
+
+        // light
+        this.light = this.add.image(0,0, 'robot-light')
+        this.light.setOrigin(0,0)
+        this.light.visible = false
+
+        this.ui = this.add.image(config.width/2, config.height/2, 'ui')
+
+        // battery
+        this.createBattery()
+
+        // item
+        this.createItem()
+
+        // collider
+        this.createColliders()
+    }
+    update(){
+        this.player.stopPlayer(this.target)
+    }
+
+    createPlayer = () => {
+        this.player = this.physics.add.existing(new Player(this.configPlayer))
+        this.player.body.setCollideWorldBounds(true)
+        this.player.body.setBoundsRectangle(new Phaser.Geom.Rectangle(0, 360, 1280, 720))
+        this.player.body.onWorldBounds = true
+        this.physics.world.on('worldbounds', () => {
+            this.player.stopPlayer()
+        },this)
+        this.input.on('pointerdown', this.player.movePlayer, this)
+        this.pointer = this.input.mousePointer
+    }
+
+    createColliders = () => {
+        this.physics.add.collider(this.player, this.laptop, () => {
+            this.player.stopPlayer()
+            this.collisionLaptop = true
+        })
+        this.collisionLaptop = false
+        this.physics.add.collider(this.player, this.battery, () => {
+            this.player.stopPlayer()
+            this.collisionBattery = true
+        })
+        this.collisionBattery = false
+        this.physics.add.collider(this.player, this.item, () => {
+            this.player.stopPlayer()
+            this.collisionItem = true
+        })
+        this.collisionItem = false
+    }
+
+    createRobot = () => {
         this.robot = this.add.image(0, 0, 'robot').setInteractive()
         this.robot.setOrigin(0,0)
         this.robot.x = 818
@@ -53,14 +115,14 @@ export class Scene1 extends Phaser.Scene {
         this.robot.on('pointerout', () => {
             this.robotText.destroy(this.robotText.x, this.robotText.y)
         })
+    }
 
-        // laptop
+    createLaptop = () => {
         this.laptop = this.items.create(0,0, 'laptop').setInteractive().setImmovable()
         this.laptop.setOrigin(0,0)
         this.laptop.x = 1143
         this.laptop.y = 543
         this.laptop.inputEnabled = true
-        console.log(this.laptop)
             this.laptop.on('pointerdown', () => {
                 if(this.collisionLaptop){
                     this.light.visible ? null : this.light.visible = true
@@ -75,37 +137,56 @@ export class Scene1 extends Phaser.Scene {
             this.laptop.on('pointerout', () => {
                 this.laptopText.destroy(this.laptopText.x, this.laptopText.y)
             })
-            
-
-        // player
-        this.player = this.physics.add.existing(new Player(this.configPlayer))
-        this.player.body.setCollideWorldBounds(true)
-        this.player.body.setBoundsRectangle(new Phaser.Geom.Rectangle(0, 360, 1280, 720))
-        this.player.body.onWorldBounds = true
-        this.physics.world.on('worldbounds', () => {
-            this.player.stopPlayer()
-        },this)
-        // this.physics.world.on('worldbounds', this.player.onWorldBounds, this)
-        this.input.on('pointerdown', this.player.movePlayer, this)
-        this.pointer = this.input.mousePointer
-
-        // light
-        this.light = this.add.image(0,0, 'robot-light')
-        this.light.setOrigin(0,0)
-        this.light.visible = false
-
-        // collider
-        this.physics.add.collider(this.player, this.laptop, () => {
-            this.player.stopPlayer()
-            this.collisionLaptop = true
-        })
-        this.collisionLaptop = false
     }
-    update(){
 
-        
+    createBattery = () => {
+        this.battery = this.items.create(0, 0, 'battery').setInteractive().setImmovable()
+        this.battery.setOrigin(0,0)
+        this.battery.x = 300
+        this.battery.y = 550
 
-        this.player.stopPlayer(this.target)
-        
+        this.battery.on('pointerover', () => {
+            this.battery.alpha = 0.5
+            this.batteryText = this.add.text(300, 680, this.inventory.battery.text, {
+                font: '25px Arial',
+                fill: 'white'
+            })
+        })
+        this.battery.on('pointerout', () => {
+            this.battery.alpha = 1
+            this.batteryText.destroy(this.batteryText.x, this.batteryText.y)
+        })
+        this.battery.on('pointerdown', () => {
+            if(this.collisionBattery && !this.inventory.battery.isPicked){
+                this.inventory.battery.isPicked = true
+                this.battery.x = 1075
+                this.battery.y = 20
+            }
+        })
+    }
+    createItem = () => {
+        this.item = this.items.create(0,0, 'battery').setInteractive().setImmovable()
+        this.item.setOrigin(0,0)
+        this.item.x = 750
+        this.item.y = 550
+
+        this.item.on('pointerover', () => {
+            this.item.alpha = 0.5
+            this.itemText = this.add.text(300, 680, this.inventory.battery.text, {
+                font: '25px Arial',
+                fill: 'white'
+            })
+        })
+        this.item.on('pointerout', () => {
+            this.item.alpha = 1
+            this.itemText.destroy(this.itemText.x, this.itemText.y)
+        })
+        this.item.on('pointerdown', () => {
+            if(this.collisionItem && !this.inventory.item.isPicked){
+                this.inventory.item.isPicked = true
+                this.item.x = 1150
+                this.item.y = 20
+            }
+        })
     }
 }

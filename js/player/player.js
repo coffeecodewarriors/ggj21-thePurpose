@@ -4,7 +4,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         config.scene.add.existing(this)
     }
     movePlayer = () => {
-        console.log(this)
         let isMoving = true
         const worldBounds = this.scene.physics.world.bounds
 

@@ -26,5 +26,13 @@ export const inventory = {
   },
   laptop:{
     text: `An old laptot. Need some battery...`
+  },
+  battery:{
+    text: `A battery`,
+    isPicked: false
+  },
+  item: {
+    text: 'I am an item',
+    isPicked: false
   }
 };

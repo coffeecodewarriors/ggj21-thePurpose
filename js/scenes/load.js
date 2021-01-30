@@ -6,11 +6,14 @@ export class Load extends Phaser.Scene {
     }
     preload = () => {
         this.load.image('bg-scene1', '../../assets/img/scene-3-bg.png')
+        this.load.image('ui', '../../assets/img/UI.png')
 
         this.load.image('robot', '../../assets/img/robot.png')
         this.load.image('robot-light', '../../assets/img/robot-light.png')
-
         this.load.image('laptop', '../../assets/img/laptop.png')
+
+        this.load.image('battery', '../../assets/img/laptop-battery.png')
+        this.load.image('item', '../../assets/img/laptop-battery.png')
 
         this.load.spritesheet('player', '../../assets/img/player-sprite.png', {
             frameWidth: 98,
