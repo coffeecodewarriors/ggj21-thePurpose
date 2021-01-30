@@ -67,16 +67,17 @@ export class Scene1 extends Phaser.Scene {
         this.createPolygons()
 
         // debugger
-        this.createDebugPointer()
+        // this.createDebugPointer()
         
     }
     update = () => {
         this.player.stopPlayer(this.target)
 
-        this.updateDebugPointer()
+        // this.updateDebugPointer()
     }
     createPlayer = () => {
         this.player = this.physics.add.existing(new Player(this.configPlayer))
+        console.log(this.player)
         this.player.body.setCollideWorldBounds(true)
         this.player.body.setBoundsRectangle(new Phaser.Geom.Rectangle(20, 250, 1280, 720))
         this.player.body.onWorldBounds = true
@@ -169,7 +170,7 @@ export class Scene1 extends Phaser.Scene {
             this.pcb.x = 548,
             this.pcb.y = 377
         }else{
-            this.pcb.x = customConfig.slot1.x + 25
+            this.pcb.x = customConfig.slot1.x + 50
             this.pcb.y = customConfig.slot1.y
         }
         this.pcb.on('pointerover', () => {
@@ -183,7 +184,7 @@ export class Scene1 extends Phaser.Scene {
         this.pcb.on('pointerdown', () => {
             if(this.collisionPcb && !this.inventory.pcb.isPicked){
                 this.inventory.pcb.isPicked = true
-                this.pcb.x = customConfig.slot1.x + 25
+                this.pcb.x = customConfig.slot1.x + 75
                 this.pcb.y = customConfig.slot1.y
             }
         })

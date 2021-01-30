@@ -70,7 +70,7 @@ export class Scene2 extends Phaser.Scene {
         this.createColliders()
 
         // debuger pointer
-        this.createDebugPointer()
+        // this.createDebugPointer()
     }
 
     // --- END CREATE METHOD ---
@@ -78,7 +78,7 @@ export class Scene2 extends Phaser.Scene {
     update(){
         this.player.stopPlayer(this.target)
        // debuger pointer
-       this.updateDebugPointer()
+    //    this.updateDebugPointer()
     }
 
     createPlayer = () => {

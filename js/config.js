@@ -58,7 +58,7 @@ export const inventory = {
     isOn: false
   },
   pcb: {
-    text: `A smal PCB board hangs on a board...`,
+    text: `A small PCB board hangs on a billboard...`,
     isPicked: false,
     isUsed: false
   },
