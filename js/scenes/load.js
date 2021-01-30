@@ -8,12 +8,14 @@ export class Load extends Phaser.Scene {
         this.load.image('bg-scene1', '../../assets/img/scene-3-bg.png')
         this.load.image('bg-scene2', '../../assets/img/scene-1-bg.png')
         this.load.image('ui', '../../assets/img/UI.png')
+        this.load.image('intro', '../../assets/img/intro-scene-bg.png')
 
         this.load.image('robot', '../../assets/img/robot.png')
         this.load.image('robot-light', '../../assets/img/robot-light.png')
         this.load.image('laptop', '../../assets/img/laptop.png')
         this.load.image('billboard', '../../assets/img/billboard.png')
         this.load.image('control-panel', '../../assets/img/control-panel.png')
+        this.load.image('omatic', '../../assets/img/control-O-matic-3000.png')
 
         this.load.image('battery', '../../assets/img/laptop-battery.png')
         this.load.image('item', '../../assets/img/laptop-battery.png')

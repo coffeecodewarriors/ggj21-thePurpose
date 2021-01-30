@@ -37,7 +37,7 @@ export const customConfig = {
 
 export const inventory = {
   robot:{
-    text: `I used to be a robot`
+    text: `I used to be a robot... It looks like it has a big lens in the center`
   },
   laptop:{
     text: `An old laptot. Need some battery...`
@@ -59,5 +59,8 @@ export const inventory = {
   },
   controlPanel: {
     text: `It's the control panel of the billboard. Controller is missing...`
+  },
+  omatic:{
+    text: `Control-O-matic 3000: Print PCBs and integrate chips easily`
   }
 };

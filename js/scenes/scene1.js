@@ -7,8 +7,8 @@ export class Scene1 extends Phaser.Scene {
         this.target = new Phaser.Math.Vector2()
         this.configPlayer = {
             scene: this,
-            x: config.width/2 - 50,
-            y: config.height - 150
+            x: config.width/2 + 150,
+            y: config.height - 225
         }
         this.inventory = {}
         this.collisionBattery = false
@@ -40,6 +40,9 @@ export class Scene1 extends Phaser.Scene {
 
         // control panel
         this.createControlPanel()
+
+        // o-matic 3000
+        this.createOmatic()
 
         // items
         this.items = this.physics.add.group()
@@ -153,6 +156,17 @@ export class Scene1 extends Phaser.Scene {
         })
         this.controlPanel.on('pointerout', () => {
             this.controlPanelText.destroy(this.controlPanelText.x, this.controlPanelText.y)
+        })
+    }
+    createOmatic = () => {
+        this.omatic = this.add.image(0,0, 'omatic').setInteractive()
+        this.omatic.setOrigin(0,0)
+        this.omatic.y = 340
+        this.omatic.on('pointerover', () => {
+            this.omaticText = this.add.text(customConfig.text.x, customConfig.text.y, this.inventory.omatic.text, customConfig.fontText)
+        })
+        this.omatic.on('pointerout', () => {
+            this.omaticText.destroy(this.omaticText.x, this.omaticText.y)
         })
     }
 }
