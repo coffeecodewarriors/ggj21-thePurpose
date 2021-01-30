@@ -132,7 +132,7 @@ export class Scene2 extends Phaser.Scene {
         this.laptop.y = 543
         this.laptop.inputEnabled = true
             this.laptop.on('pointerdown', () => {
-                if(this.collisionLaptop){
+                if(this.collisionLaptop && this.inventory.battery.isPicked){
                     this.light.visible ? null : this.light.visible = true
                     this.battery.visible ? this.battery.visible = false : null
                     this.item.visible ? null : this.item.visible = true
