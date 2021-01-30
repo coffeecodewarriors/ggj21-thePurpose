@@ -37,7 +37,7 @@ export const customConfig = {
 
 export const inventory = {
   robot:{
-    text: `"I used to be a robot..." It looks like it has a big lens in the center`
+    text: `I used this robot as a portable medium to provide light where it was needed. It has a big lens in the middle`
   },
   laptop:{
     text: `An old laptot. Need some battery...`
@@ -63,5 +63,20 @@ export const inventory = {
   },
   omatic:{
     text: `Control-O-matic 3000: Print PCBs and integrate chips easily`
+  },
+  pcb: {
+    text: `A smal PCB board hangs on a board...`
+  },
+  depuradora: {
+    text: `"I invented that compact treatment plant to supply water to small needy populations"`
+  },
+  assistantV2:{
+    text: `Asistant-O matic v2: with this assistant I wanted to facilitate housework for disable people`
+  },
+  robofriend: {
+    text: `It was programmed with various game dynamics to cheer up the children in the hospital`
+  },
+  assistant: {
+    text: `I was working on an early disease detection assistant... but i quit`
   }
 };

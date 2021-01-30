@@ -64,7 +64,7 @@ export class Scene2 extends Phaser.Scene {
         }
 
         // polygons
-        // this.createPolygons()
+        this.createPolygons()
 
         // collider
         this.createColliders()
@@ -231,15 +231,22 @@ export class Scene2 extends Phaser.Scene {
     }
 
     createPolygons = () => {
-        const depuradoraPoly = new Phaser.Geom.Polygon([
-            532, 320,
-            532, 490,
-            593, 524,
-            643, 473,
-            612, 333,
-            580, 305
-        ])
-        depuradoraPoly.setInteractive()
+        this.depuradoraZone = this.add.zone(582, 405, 104, 201).setInteractive()
+        this.depuradoraZone.on('pointerover', () => {
+            this.depuradoraText = this.add.text(customConfig.text.x, customConfig.text.y, this.inventory.depuradora.text, customConfig.fontText)
+        })
+        this.depuradoraZone.on('pointerout', () => {
+            this.depuradoraText.destroy(this.depuradoraText.x, this.depuradoraText.y)
+        })
+
+        this.assistantV2 = this.add.zone(258, 366, 150, 233).setInteractive()
+        this.assistantV2.on('pointerover', () => {
+            this.assistantV2Text = this.add.text(customConfig.text.x, customConfig.text.y, this.inventory.assistantV2.text, customConfig.fontText)
+        })
+        this.assistantV2.on('pointerout', () => {
+            this.assistantV2Text.destroy(this.assistantV2Text.x, this.assistantV2Text.y)
+        })
+
 
     }
 
