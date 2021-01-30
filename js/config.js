@@ -20,4 +20,11 @@ export const config = {
   },
 };
 
-export const inventory = {};
+export const inventory = {
+  robot:{
+    text: `I used to be a robot`
+  },
+  laptop:{
+    text: `An old laptot. Need some battery...`
+  }
+};

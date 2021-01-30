@@ -11,6 +11,7 @@ export class Scene1 extends Phaser.Scene {
             y: config.height - 50
         }
         this.inventory = {}
+        this.collisionLaptop = false
     }
     init = (data) => {
         if(data.inventory){
@@ -42,23 +43,49 @@ export class Scene1 extends Phaser.Scene {
         this.robot.x = 818
         this.robot.y = 66
         this.robot.on('pointerdown', () => {
-            
+        })
+        this.robot.on('pointerover', () => {
+            this.robotText = this.add.text(300, 680, this.inventory.robot.text, {
+                font: '25px Arial',
+                fill: 'white'
+            })
+        })
+        this.robot.on('pointerout', () => {
+            this.robotText.destroy(this.robotText.x, this.robotText.y)
         })
 
-        
-
-
         // laptop
-        this.laptop = this.add.image(0,0, 'laptop').setInteractive()
+        this.laptop = this.items.create(0,0, 'laptop').setInteractive().setImmovable()
         this.laptop.setOrigin(0,0)
         this.laptop.x = 1143
         this.laptop.y = 543
-        this.laptop.on('pointerdown', () => {
-            this.light.visible ? this.light.visible = false : this.light.visible = true
-        })
+        this.laptop.inputEnabled = true
+        console.log(this.laptop)
+            this.laptop.on('pointerdown', () => {
+                if(this.collisionLaptop){
+                    this.light.visible ? null : this.light.visible = true
+                }
+            })
+            this.laptop.on('pointerover', () => {
+                this.laptopText = this.add.text(300, 680, this.inventory.laptop.text, {
+                    font: '25px Arial',
+                    fill: 'white'
+                })
+            })
+            this.laptop.on('pointerout', () => {
+                this.laptopText.destroy(this.laptopText.x, this.laptopText.y)
+            })
+            
 
         // player
         this.player = this.physics.add.existing(new Player(this.configPlayer))
+        this.player.body.setCollideWorldBounds(true)
+        this.player.body.setBoundsRectangle(new Phaser.Geom.Rectangle(0, 360, 1280, 720))
+        this.player.body.onWorldBounds = true
+        this.physics.world.on('worldbounds', () => {
+            this.player.stopPlayer()
+        },this)
+        // this.physics.world.on('worldbounds', this.player.onWorldBounds, this)
         this.input.on('pointerdown', this.player.movePlayer, this)
         this.pointer = this.input.mousePointer
 
@@ -68,14 +95,17 @@ export class Scene1 extends Phaser.Scene {
         this.light.visible = false
 
         // collider
-        this.physics.add.collider(this.player, this.items, () => {
+        this.physics.add.collider(this.player, this.laptop, () => {
             this.player.stopPlayer()
+            this.collisionLaptop = true
         })
-        console.log(this)
+        this.collisionLaptop = false
     }
     update(){
-        this.player.stopPlayer(this.target)
 
+        
+
+        this.player.stopPlayer(this.target)
         
     }
 }

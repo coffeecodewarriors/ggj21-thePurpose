@@ -11,11 +11,11 @@ export class Intro extends Phaser.Scene {
     preload = () => {
     }
     create = () => {
-        this.add.text(200, 200, 'Iniciando el juego...', {
+        this.add.text(500, 200, 'Iniciando el juego...', {
             font: '25px Arial',
             fill: 'red'
         })
-        this.startBtn = this.add.text(200, 300, 'START', {
+        this.startBtn = this.add.text(500, 300, 'START', {
             font: '25px Arial',
             fill: 'blue'
         }).setInteractive()
