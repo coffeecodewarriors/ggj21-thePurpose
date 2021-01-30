@@ -91,6 +91,11 @@ export class Scene1 extends Phaser.Scene {
             this.collisionBattery = true
         })
         this.collisionBattery = false
+
+        this.physics.add.overlap(this.player, this.pcb, () => {
+            this.collisionPcb = true
+        })
+        this.collisionPcb = false
     }
     createBattery = () => {
         if(!this.inventory.battery.isPicked){
@@ -159,7 +164,7 @@ export class Scene1 extends Phaser.Scene {
     }
     createPcb = () => {
         if(!this.inventory.pcb.isPicked){
-            this.pcb = this.items.create(0, 0, 'pcb').setInteractive.setImmovable()
+            this.pcb = this.items.create(0, 0, 'pcb').setInteractive().setImmovable()
             this.pcb.setOrigin(0,0)
             this.pcb.x = 548,
             this.pcb.y = 377
