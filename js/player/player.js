@@ -4,22 +4,23 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         config.scene.add.existing(this)
     }
     movePlayer = () => {
+        console.log(this)
         let isMoving = true
-        const worldBounds = this.physics.world.bounds
+        const worldBounds = this.scene.physics.world.bounds
 
-        if(this.pointer.isDown && isMoving === true){
-            this.target.x = this.pointer.x
-            this.target.y = this.pointer.y
-            this.player.play()
-            this.physics.moveToObject(this.player, this.target, 200)
-            this.sound.play()
+        if(this.scene.pointer.isDown && isMoving === true){
+            this.scene.target.x = this.scene.pointer.x
+            this.scene.target.y = this.scene.pointer.y
+            this.scene.player.play('playerAnim')
+            this.scene.physics.moveToObject(this.scene.player, this.scene.target, 200)
+            // this.sound.play()
         }
-        if(this.pointer.x > this.player.x){
-            this.player.scaleX = 1
-            this.player.body.offset = {x: 0, y: 0}
+        if(this.scene.pointer.x > this.scene.player.x){
+            this.scene.player.scaleX = 1
+            this.scene.player.body.offset = {x: 0, y: 0}
         }else {
-            this.player.scaleX = -1
-            this.player.body.offset = {x: 46, y: 0}
+            this.scene.player.scaleX = -1
+            this.scene.player.body.offset = {x: 98, y: 0}
         }
     }
     stopPlayer = (target) => {

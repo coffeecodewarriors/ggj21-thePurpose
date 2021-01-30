@@ -12,20 +12,18 @@ export class Load extends Phaser.Scene {
 
         this.load.image('laptop', '../../assets/img/laptop.png')
 
-        this.load.image('player', '../../assets/img/player-sprite.png')
-
-        this.load.spritesheet('', '', {
+        this.load.spritesheet('player', '../../assets/img/player-sprite.png', {
             frameWidth: 98,
             frameHeight: 229
         })
 
-        this.load.audio()
+        // this.load.audio()
     }
     create = () => {
         this.add.text(20, 20, 'Loading game...')
         this.scene.start('introScene')
-        let music = this.sound.add('', { loop: true })
-        this.sound.add()
-        music.play()
+        // let music = this.sound.add('', { loop: true })
+        // this.sound.add()
+        // music.play()
     }
 }

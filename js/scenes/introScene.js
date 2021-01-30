@@ -15,7 +15,10 @@ export class Intro extends Phaser.Scene {
             font: '25px Arial',
             fill: 'red'
         })
-        this.startBtn = this.add.image()
+        this.startBtn = this.add.text(200, 300, 'START', {
+            font: '25px Arial',
+            fill: 'blue'
+        }).setInteractive()
         this.startBtn.on('pointerdown', () => {
             this.scene.stop('introScene')
             this.scene.start('scene1', { inventory })

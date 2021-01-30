@@ -21,9 +21,10 @@ export class Scene1 extends Phaser.Scene {
             return
         }
     }
+    preload = () => {}
     create = () => {
-        this.element = this.add.tileSprite(0, 0, config.width, config.height, '')
-        this.element.setOrigin(0,0)
+        this.bg1 = this.add.tileSprite(0, 0, config.width, config.height, 'bg-scene1')
+        this.bg1.setOrigin(0,0)
 
         this.anims.create({
             key: 'playerAnim',
@@ -38,15 +39,22 @@ export class Scene1 extends Phaser.Scene {
         // robot
         this.robot = this.add.image(0, 0, 'robot').setInteractive()
         this.robot.setOrigin(0,0)
+        this.robot.x = 818
+        this.robot.y = 66
         this.robot.on('pointerdown', () => {
-            console.log('hola')
+            
         })
+
+        
+
 
         // laptop
         this.laptop = this.add.image(0,0, 'laptop').setInteractive()
         this.laptop.setOrigin(0,0)
+        this.laptop.x = 1143
+        this.laptop.y = 543
         this.laptop.on('pointerdown', () => {
-            console.log('soy laptop')
+            this.light.visible ? this.light.visible = false : this.light.visible = true
         })
 
         // player
@@ -54,11 +62,16 @@ export class Scene1 extends Phaser.Scene {
         this.input.on('pointerdown', this.player.movePlayer, this)
         this.pointer = this.input.mousePointer
 
+        // light
+        this.light = this.add.image(0,0, 'robot-light')
+        this.light.setOrigin(0,0)
+        this.light.visible = false
+
         // collider
         this.physics.add.collider(this.player, this.items, () => {
             this.player.stopPlayer()
         })
-        
+        console.log(this)
     }
     update(){
         this.player.stopPlayer(this.target)
