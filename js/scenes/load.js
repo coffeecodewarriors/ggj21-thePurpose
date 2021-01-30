@@ -19,6 +19,7 @@ export class Load extends Phaser.Scene {
 
         this.load.image('battery', '../../assets/img/laptop-battery.png')
         this.load.image('microchip', '../../assets/img/microchip.png')
+        this.load.image('pcb', '../../assets/img/pcb.png')
 
         this.load.spritesheet('player', '../../assets/img/player-sprite.png', {
             frameWidth: 98,

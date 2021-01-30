@@ -120,10 +120,10 @@ export class Scene2 extends Phaser.Scene {
         this.robot.on('pointerdown', () => {
         })
         this.robot.on('pointerover', () => {
-            this.robotText = this.add.text(300, 680, this.inventory.robot.text, {
+            this.robotText = this.add.text(config.width/2, customConfig.text.y, this.inventory.robot.text, {
                 font: '25px Arial',
                 fill: 'white'
-            })
+            }).setOrigin(0.5)
         })
         this.robot.on('pointerout', () => {
             this.robotText.destroy(this.robotText.x, this.robotText.y)
@@ -157,10 +157,7 @@ export class Scene2 extends Phaser.Scene {
                 }
             })
             this.laptop.on('pointerover', () => {
-                this.laptopText = this.add.text(300, 680, this.inventory.laptop.text, {
-                    font: '25px Arial',
-                    fill: 'white'
-                })
+                this.laptopText = this.add.text(config.width/2, customConfig.text.y, this.inventory.laptop.text, customConfig.fontText).setOrigin(0.5)
             })
             this.laptop.on('pointerout', () => {
                 this.laptopText.destroy(this.laptopText.x, this.laptopText.y)
@@ -179,10 +176,7 @@ export class Scene2 extends Phaser.Scene {
                 }
             this.battery.on('pointerover', () => {
                 this.battery.alpha = 0.5
-                this.batteryText = this.add.text(300, 680, this.inventory.battery.text, {
-                    font: '25px Arial',
-                    fill: 'white'
-                })
+                this.batteryText = this.add.text(config.width/2, customConfig.text.y, this.inventory.battery.text, customConfig.fontText).setOrigin(0.5)
             })
             this.battery.on('pointerout', () => {
                 this.battery.alpha = 1
@@ -212,10 +206,7 @@ export class Scene2 extends Phaser.Scene {
 
         this.microchip.on('pointerover', () => {
             this.microchip.alpha = 0.5
-            this.microchipText = this.add.text(300, 680, this.inventory.microchip.text, {
-                font: '25px Arial',
-                fill: 'white'
-            })
+            this.microchipText = this.add.text(config.width/2, customConfig.text.y, this.inventory.microchip.text, customConfig.fontText).setOrigin(0.5)
         })
         this.microchip.on('pointerout', () => {
             this.microchip.alpha = 1
@@ -233,19 +224,20 @@ export class Scene2 extends Phaser.Scene {
     createPolygons = () => {
         this.depuradoraZone = this.add.zone(582, 405, 104, 201).setInteractive()
         this.depuradoraZone.on('pointerover', () => {
-            this.depuradoraText = this.add.text(customConfig.text.x, customConfig.text.y, this.inventory.depuradora.text, customConfig.fontText)
+            this.depuradoraText = this.add.text(config.width/2, customConfig.text.y, this.inventory.depuradora.text, customConfig.fontText).setOrigin(0.5)
         })
         this.depuradoraZone.on('pointerout', () => {
             this.depuradoraText.destroy(this.depuradoraText.x, this.depuradoraText.y)
         })
 
-        this.assistantV2 = this.add.zone(258, 366, 150, 233).setInteractive()
-        this.assistantV2.on('pointerover', () => {
-            this.assistantV2Text = this.add.text(customConfig.text.x, customConfig.text.y, this.inventory.assistantV2.text, customConfig.fontText)
+        this.assistantV2Zone = this.add.zone(258, 366, 150, 233).setInteractive()
+        this.assistantV2Zone.on('pointerover', () => {
+            this.assistantV2Text = this.add.text(config.width/2, customConfig.text.y, this.inventory.assistantV2.text, customConfig.fontText).setOrigin(0.5)
         })
-        this.assistantV2.on('pointerout', () => {
+        this.assistantV2Zone.on('pointerout', () => {
             this.assistantV2Text.destroy(this.assistantV2Text.x, this.assistantV2Text.y)
         })
+
 
 
     }

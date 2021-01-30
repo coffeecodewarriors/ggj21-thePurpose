@@ -12,6 +12,7 @@ export class Scene1 extends Phaser.Scene {
         }
         this.inventory = {}
         this.collisionBattery = false
+        this.collisionPcb = false
     }
     init = (data) => {
         this.inventory = data.inventory
@@ -50,14 +51,20 @@ export class Scene1 extends Phaser.Scene {
         // battery
         this.createBattery()
 
-        // item
+        // Microchip
         this.createMicrochip()
+
+        // PCB
+        this.createPcb()
 
         // player
         this.createPlayer()
 
         // colliders
         this.createColliders()
+
+        // polygons
+        this.createPolygons()
 
         // debugger
         this.createDebugPointer()
@@ -99,7 +106,7 @@ export class Scene1 extends Phaser.Scene {
 
         this.battery.on('pointerover', () => {
             this.battery.alpha = 0.5
-            this.batteryText = this.add.text(customConfig.text.x, customConfig.text.y, this.inventory.battery.text, customConfig.fontText)
+            this.batteryText = this.add.text(config.width/2, customConfig.text.y, this.inventory.battery.text, customConfig.fontText).setOrigin(0.5)
         })
         this.battery.on('pointerout', () => {
             this.battery.alpha = 1
@@ -127,7 +134,7 @@ export class Scene1 extends Phaser.Scene {
         this.billboard.y = 70
         this.billboard.alpha = 0.5
         this.billboard.on('pointerover', () => {
-            this.billboardText = this.add.text(customConfig.text.x, customConfig.text.y, this.inventory.billboard.text, customConfig.fontText)
+            this.billboardText = this.add.text(config.width/2, customConfig.text.y, this.inventory.billboard.text, customConfig.fontText).setOrigin(0.5)
         })
         this.billboard.on('pointerout', () => {
             this.billboardText.destroy(this.billboardText.x, this.billboardText.y)
@@ -142,15 +149,44 @@ export class Scene1 extends Phaser.Scene {
             this.microchip.y = customConfig.slot1.y
             this.microchip.on('pointerover', () => {
                 this.microchip.alpha = 0.5
-                this.microchipText = this.add.text(300, 680, this.inventory.microchip.text, {
-                    font: '25px Arial',
-                    fill: 'white'
-                })
+                this.microchipText = this.add.text(config.width/2, customConfig.text.y, this.inventory.microchip.text, customConfig.fontText).setOrigin(0.5)
             })
             this.microchip.on('pointerout', () => {
                 this.microchip.alpha = 1
                 this.microchipText.destroy(this.microchipText.x, this.microchipText.y)
             })
+        }
+    }
+    createPcb = () => {
+        if(!this.inventory.pcb.isPicked){
+            this.pcb = this.items.create(0, 0, 'pcb').setInteractive.setImmovable()
+            this.pcb.setOrigin(0,0)
+            this.pcb.x = 548,
+            this.pcb.y = 377
+        }else{
+            this.pcb.x = customConfig.slot1.x + 25
+            this.pcb.y = customConfig.slot1.y
+        }
+        this.pcb.on('pointerover', () => {
+            this.pcb.alpha = 0.5
+            this.pcbText = this.add.text(config.width/2, customConfig.text.y, this.inventory.pcb.text, customConfig.fontText).setOrigin(0.5)
+        })
+        this.pcb.on('pointerout', () => {
+            this.pcb.alpha = 1
+            this.pcbText.destroy(this.pcbText.x, this.pcbText.y)
+        })
+        this.pcb.on('pointerdown', () => {
+            if(this.collisionPcb && !this.inventory.pcb.isPicked){
+                this.inventory.pcb.isPicked = true
+                this.pcb.x = customConfig.slot1.x + 25
+                this.pcb.y = customConfig.slot1.y
+            }
+        })
+        if(this.inventory.pcb.isPicked){
+            this.pcb.visible = true
+            if(this.inventory.pcb.isUsed){
+                this.pcb.visible = false
+            }
         }
     }
     createControlPanel = () => {
@@ -159,7 +195,7 @@ export class Scene1 extends Phaser.Scene {
         this.controlPanel.x = 1036
         this.controlPanel.y = 315
         this.controlPanel.on('pointerover', () => {
-            this.controlPanelText = this.add.text(customConfig.text.x, customConfig.text.y, this.inventory.controlPanel.text, customConfig.fontText)
+            this.controlPanelText = this.add.text(config.width/2, customConfig.text.y, this.inventory.controlPanel.text, customConfig.fontText).setOrigin(0.5)
         })
         this.controlPanel.on('pointerout', () => {
             this.controlPanelText.destroy(this.controlPanelText.x, this.controlPanelText.y)
@@ -170,10 +206,28 @@ export class Scene1 extends Phaser.Scene {
         this.omatic.setOrigin(0,0)
         this.omatic.y = 340
         this.omatic.on('pointerover', () => {
-            this.omaticText = this.add.text(customConfig.text.x, customConfig.text.y, this.inventory.omatic.text, customConfig.fontText)
+            this.omaticText = this.add.text(config.width/2, customConfig.text.y, this.inventory.omatic.text, customConfig.fontText).setOrigin(0.5)
         })
         this.omatic.on('pointerout', () => {
             this.omaticText.destroy(this.omaticText.x, this.omaticText.y)
+        })
+    }
+
+    createPolygons = () => {
+        this.robofriendZone = this.add.zone(234, 441, 70, 92).setInteractive()
+        this.robofriendZone.on('pointerover', () => {
+            this.robofriendText = this.add.text(config.width/2, customConfig.text.y, this.inventory.robofriend.text, customConfig.fontText).setOrigin(0.5)
+        })
+        this.robofriendZone.on('pointerout', () => {
+            this.robofriendText.destroy(this.robofriendText.x, this.robofriendText.y)
+        })
+
+        this.assistantZone = this.add.zone(1209, 415, 60, 166).setInteractive()
+        this.assistantZone.on('pointerover', () => {
+            this.assistantText = this.add.text(config.width/2, customConfig.text.y, this.inventory.assistant.text, customConfig.fontText).setOrigin(0.5)
+        })
+        this.assistantZone.on('pointerout', () => {
+            this.assistantText.destroy(this.assistantText.x, this.assistantText.y)
         })
     }
 

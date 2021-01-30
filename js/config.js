@@ -31,7 +31,9 @@ export const customConfig = {
   },
   fontText: {
     font: '25px Arial',
-    fill: 'white'
+    fill: 'white',
+    boundsAlignH: 'center',
+    boundsAlignV: 'center'
   }
 }
 
@@ -55,6 +57,11 @@ export const inventory = {
   light: {
     isOn: false
   },
+  pcb: {
+    text: `A smal PCB board hangs on a board...`,
+    isPicked: false,
+    isUsed: false
+  },
   billboard: {
     text: `My old billboard... it's broken. I no longer remember what it advertised`
   },
@@ -63,9 +70,6 @@ export const inventory = {
   },
   omatic:{
     text: `Control-O-matic 3000: Print PCBs and integrate chips easily`
-  },
-  pcb: {
-    text: `A smal PCB board hangs on a board...`
   },
   depuradora: {
     text: `"I invented that compact treatment plant to supply water to small needy populations"`
