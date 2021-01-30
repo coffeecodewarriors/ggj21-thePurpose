@@ -1,6 +1,6 @@
 import { Load } from './scenes/load.js'
-import { Scene1 } from './scenes/scene1.js'
 import { Scene2 } from './scenes/scene2.js'
+import { Scene1 } from './scenes/scene1.js'
 import { Intro } from './scenes/introScene.js'
 import { Ending } from './scenes/endingScene.js'
 
@@ -24,6 +24,14 @@ export const customConfig = {
   slot1: {
     x: 1075,
     y: 20
+  },
+  text:{
+    x: 300,
+    y: 680
+  },
+  fontText: {
+    font: '25px Arial',
+    fill: 'white'
   }
 }
 
@@ -48,5 +56,8 @@ export const inventory = {
   },
   billboard: {
     text: `My old billboard... it's broken. I no longer remember what it advertised`
+  },
+  controlPanel: {
+    text: `It's the control panel of the billboard. Controller is missing...`
   }
 };
