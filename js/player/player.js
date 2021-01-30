@@ -12,7 +12,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
             this.scene.target.y = this.scene.pointer.y
             this.scene.player.play('playerAnim')
             this.scene.physics.moveToObject(this.scene.player, this.scene.target, 200)
-            // this.sound.play()
+            //this.sound.play('playerStep')
         }
         if(this.scene.pointer.x > this.scene.player.x){
             this.scene.player.scaleX = 1

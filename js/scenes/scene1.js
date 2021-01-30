@@ -33,7 +33,7 @@ export class Scene1 extends Phaser.Scene {
         this.anims.create({
             key: 'playerAnim',
             frames: this.anims.generateFrameNumbers('player'),
-            frameRate: 15,
+            frameRate: 10,
             repeat: -1
         })
 
