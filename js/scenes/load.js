@@ -6,6 +6,7 @@ export class Load extends Phaser.Scene {
     }
     preload = () => {
         this.load.image('bg-scene1', '../../assets/img/scene-3-bg.png')
+        this.load.image('bg-scene2', '../../assets/img/scene-1-bg.png')
         this.load.image('ui', '../../assets/img/UI.png')
 
         this.load.image('robot', '../../assets/img/robot.png')

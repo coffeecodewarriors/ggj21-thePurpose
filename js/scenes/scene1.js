@@ -7,7 +7,7 @@ export class Scene1 extends Phaser.Scene {
         this.target = new Phaser.Math.Vector2()
         this.configPlayer = {
             scene: this,
-            x: config.width/2 - 50,
+            x: config.width - 80,
             y: config.height - 50
         }
         this.inventory = {}
@@ -16,6 +16,7 @@ export class Scene1 extends Phaser.Scene {
         this.collisionItem = false
     }
     init = (data) => {
+        console.log(data)
         if(data.inventory){
             this.inventory = data.inventory
         }
@@ -26,6 +27,7 @@ export class Scene1 extends Phaser.Scene {
     }
     preload = () => {}
     create = () => {
+        console.log(this)
         this.bg1 = this.add.tileSprite(0, 0, config.width, config.height, 'bg-scene1')
         this.bg1.setOrigin(0,0)
 
@@ -87,13 +89,13 @@ export class Scene1 extends Phaser.Scene {
             this.collisionLaptop = true
         })
         this.collisionLaptop = false
-        this.physics.add.collider(this.player, this.battery, () => {
-            this.player.stopPlayer()
+        this.physics.add.overlap(this.player, this.battery, () => {
+            // this.player.stopPlayer()
             this.collisionBattery = true
         })
         this.collisionBattery = false
-        this.physics.add.collider(this.player, this.item, () => {
-            this.player.stopPlayer()
+        this.physics.add.overlap(this.player, this.item, () => {
+            // this.player.stopPlayer()
             this.collisionItem = true
         })
         this.collisionItem = false

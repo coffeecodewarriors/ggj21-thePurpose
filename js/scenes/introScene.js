@@ -21,7 +21,7 @@ export class Intro extends Phaser.Scene {
         }).setInteractive()
         this.startBtn.on('pointerdown', () => {
             this.scene.stop('introScene')
-            this.scene.start('scene1', { inventory })
+            this.scene.start('scene2', { inventory })
         })
     }
 }

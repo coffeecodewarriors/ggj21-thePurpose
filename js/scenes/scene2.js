@@ -7,7 +7,7 @@ export class Scene2 extends Phaser.Scene {
         this.target = new Phaser.Math.Vector2()
         this.configPlayer = {
             scene: this,
-            x: config.width - 80,
+            x: config.width/2 - 50,
             y: config.height - 50
         }
         this.inventory = {}
@@ -15,9 +15,12 @@ export class Scene2 extends Phaser.Scene {
     init = (data) => {
         this.inventory = data.inventory
     }
-    preload = (data) => {
+    preload = () => {
     }
     create = () => {
+        this.bg2 = this.add.tileSprite(0, 0, config.width, config.height, 'bg-scene2')
+        this.bg2.setOrigin(0,0)
+
         this.anims.create({
             key: 'playerAnim',
             frames: this.anims.generateFrameNumbers('player'),

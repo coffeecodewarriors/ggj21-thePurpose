@@ -72,7 +72,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 this.scene.player.x >= 1250
                 currentScene.game.scene.stop('scene2')
                 currentScene.game.scene.start('scene1', {
-                    scene: 'scene2'
+                    scene: 'scene2',
+                    inventory: currentScene.inventory
                 })
             }
         }
