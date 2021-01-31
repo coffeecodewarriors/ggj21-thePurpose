@@ -37,6 +37,17 @@ export class Scene1 extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         })
+        this.anims.create({
+            key: 'arrow',
+            frames: [
+                // {key: 'arrow1'},
+                {key: 'arrow2'},
+                {key: 'arrow3', duration: 1800}
+            ],
+            frameRate: 2,
+            repeat: -1
+        })
+        this.arrow = this.add.sprite(config.width - 50, config.height/2, 'arrow2').play('arrow')
         
         // billboard
         this.createBillboard()
@@ -172,7 +183,7 @@ export class Scene1 extends Phaser.Scene {
         if(this.inventory.microchip.isPicked && !this.inventory.microchip.isUsed){
             this.microchip = this.items.create(0, 0, 'microchip').setInteractive().setImmovable()
             this.microchip.setOrigin(0, 0)
-            this.microchip.x = customConfig.slot1.x
+            this.microchip.x = customConfig.slot1.x -5
             this.microchip.y = customConfig.slot1.y
             this.microchip.on('pointerover', () => {
                 this.microchip.alpha = 0.5

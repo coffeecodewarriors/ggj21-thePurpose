@@ -22,7 +22,9 @@ export class Load extends Phaser.Scene {
     this.load.image("pcb", "../../assets/img/pcb.png")
     this.load.image("controller", "../../assets/img/controller.png")
 
-    this.load.image("arrow", "../../assets/img/this-way.gif")
+    this.load.image("arrow1", "../../assets/img/this-way-1.png")
+    this.load.image("arrow2", "../../assets/img/this-way-2.png")
+    this.load.image("arrow3", "../../assets/img/this-way-3.png")
 
     this.load.spritesheet("player", "../../assets/img/player-sprite.png", {
       frameWidth: 98,

@@ -36,6 +36,17 @@ export class Scene2 extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         })
+        this.anims.create({
+            key: 'arrow',
+            frames: [
+                {key: 'arrow2'},
+                {key: 'arrow3', duration: 1800}
+            ],
+            frameRate: 2,
+            repeat: -1
+        })
+        this.arrow = this.add.sprite(50, config.height/2, 'arrow2').play('arrow')
+        this.arrow.scaleX = -1
 
         // items
         this.items = this.physics.add.group()
@@ -59,7 +70,7 @@ export class Scene2 extends Phaser.Scene {
         this.createBattery()
 
         // microchip
-        if(this.inventory.microchip.isPicked){
+        if(this.inventory.microchip.isShowed){
             this.createMicrochip()
         }
         // pcb
@@ -155,6 +166,7 @@ export class Scene2 extends Phaser.Scene {
                     // this.microchip.visible ? null : this.microchip.visible = true
                     this.inventory.battery.isUsed = true
                     this.createMicrochip()
+                    this.inventory.microchip.isShowed = true
                     this.createColliders()
                 }
             })
@@ -200,8 +212,9 @@ export class Scene2 extends Phaser.Scene {
             this.microchip.x = 570
             this.microchip.y = 550
         }
+
         if(this.inventory.microchip.isPicked){
-            this.microchip.x = customConfig.slot1.x
+            this.microchip.x = customConfig.slot1.x - 5
             this.microchip.y = customConfig.slot1.y
             this.microchip.visible = true
             if(this.inventory.microchip.isUsed){
@@ -221,7 +234,7 @@ export class Scene2 extends Phaser.Scene {
         this.microchip.on('pointerdown', () => {
             if(this.collisionMicrochip && !this.inventory.microchip.isPicked){
                 this.inventory.microchip.isPicked = true
-                this.microchip.x = customConfig.slot1.x
+                this.microchip.x = customConfig.slot1.x - 5
                 this.microchip.y = customConfig.slot1.y
             }
         })
