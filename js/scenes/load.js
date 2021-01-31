@@ -36,12 +36,16 @@ export class Load extends Phaser.Scene {
 
     this.load.audio("theme", "../../assets/sound/Heuristics For The Brain - pATCHES.mp3")
     this.load.audio("playerStep", "../../assets/sound/Footstep volup.mp3")
+    this.load.audio('playerStep2', '../../assets/sound/footsep.mp3')
   }
   create = () => {
     this.add.text(20, 20, "Loading game...");
     this.scene.start("introScene");
-    let music = this.sound.add("theme", { loop: true });
-    this.sound.add("playerStep");
-    music.play();
+    this.music = this.sound.add("theme", {
+      loop: true,
+      volume: 0.2
+    });
+    // this.sound.add("playerStep");
+    this.music.play();
   }
 }

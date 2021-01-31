@@ -2,17 +2,25 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(config){
         super(config.scene, config.x, config.y, 'player')
         config.scene.add.existing(this)
+        
     }
     movePlayer = () => {
         let isMoving = true
         const worldBounds = this.scene.physics.world.bounds
+        this.walk = this.scene.sound.add('playerStep2', {
+            volume: 0.4
+        })
 
         if(this.scene.pointer.isDown && isMoving === true){
+            if(this.walk.isPlaying){
+                this.walk.pause()
+            }
             this.scene.target.x = this.scene.pointer.x
             this.scene.target.y = this.scene.pointer.y
             this.scene.player.play('playerAnim')
             this.scene.physics.moveToObject(this.scene.player, this.scene.target, 200)
-            //this.sound.play('playerStep')
+            this.walk.play()
+            console.log(this.walk.isPlaying)
         }
         if(this.scene.pointer.x > this.scene.player.x){
             this.scene.player.scaleX = 1
@@ -26,11 +34,13 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
         if(!target){
             this.scene.player.body.reset(this.scene.player.x, this.scene.player.y)
             this.scene.player.anims.pause(this.scene.player.anims.currentAnim.frames[0])
+            this.walk.pause()
             return
         }
         const stop = () => {
             this.scene.player.body.reset(target.x, target.y)
             this.scene.player.anims.pause(this.scene.player.anims.currentAnim.frames[0])
+            this.walk.pause()
         }
         let distance = Phaser.Math.Distance.Between(
             this.scene.player.x,
