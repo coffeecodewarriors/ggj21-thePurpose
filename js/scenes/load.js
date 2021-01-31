@@ -9,7 +9,7 @@ export class Load extends Phaser.Scene {
     this.load.image("bg-scene2", "../../assets/img/scene-1-bg.png")
     this.load.image("ui", "../../assets/img/UI.png")
     this.load.image("intro", "../../assets/img/intro-scene-bg.png")
-    this.load.image('inventory', '../../assets/img/inventory-icon.png')
+    // this.load.image('inventory', '../../assets/img/inventory-icon.png')
 
     this.load.image("robot", "../../assets/img/robot.png")
     this.load.image("robot-light", "../../assets/img/robot-light.png")

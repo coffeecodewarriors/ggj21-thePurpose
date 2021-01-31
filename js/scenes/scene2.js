@@ -249,8 +249,8 @@ export class Scene2 extends Phaser.Scene {
         this.microchip.on('pointerdown', () => {
             if(this.collisionMicrochip && !this.inventory.microchip.isPicked){
                 this.inventory.microchip.isPicked = true
-                this.microchip.x = customConfig.slot1.x - 5
-                this.microchip.y = customConfig.slot1.y
+                this.microchip.x = customConfig.slot1.x - 7
+                this.microchip.y = customConfig.slot1.y -5
             }
         })
     }
@@ -326,11 +326,11 @@ export class Scene2 extends Phaser.Scene {
             if(this.music.isPlaying){
                 this.music.pause()
             }else{
-                this.music.play()
+                this.music.resume()
             }
         })
         this.musicLevel = this.add.image(0, 0, 'audio-icon').setInteractive().setOrigin(0,0)
-        this.musicLevel.x = 90
+        this.musicLevel.x = 70
         this.musicLevel.y = 10
         this.musicLevel.on('pointerover', () => {
             this.musicLevel.alpha = 0.5
@@ -347,14 +347,14 @@ export class Scene2 extends Phaser.Scene {
                 this.slider.destroy()
             }
         })
-        this.inventoryIcon = this.add.image(0, 0, 'inventory')
-        this.inventoryIcon.x = 1000
-        this.inventoryIcon.y = 30
+        // this.inventoryIcon = this.add.image(0, 0, 'inventory')
+        // this.inventoryIcon.x = 1000
+        // this.inventoryIcon.y = 30
     }
     createSlider = () => {
         this.slider = this.rexUI.add.slider({
-            x:140,
-            y: 75,
+            x:235,
+            y: 30,
             width: 200,
             height: 15,
             orientation: 'x',

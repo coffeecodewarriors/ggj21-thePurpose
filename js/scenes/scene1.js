@@ -38,6 +38,8 @@ export class Scene1 extends Phaser.Scene {
         console.log(this)
         this.bg2 = this.add.tileSprite(0, 0, config.width, config.height, 'bg-scene2')
         this.bg2.setOrigin(0,0)
+        this.ui = this.add.tileSprite(0, 0, config.width, config.height, 'ui')
+        this.ui.setOrigin(0,0)
 
         this.anims.create({
             key: 'playerAnim',
@@ -171,7 +173,7 @@ export class Scene1 extends Phaser.Scene {
         this.battery.on('pointerdown', () => {
             if(this.collisionBattery && !this.inventory.battery.isPicked){
                 this.inventory.battery.isPicked = true
-                this.battery.x = customConfig.slot1.x + 5
+                this.battery.x = customConfig.slot1.x
                 this.battery.y = customConfig.slot1.y
             }
         })
@@ -238,8 +240,8 @@ export class Scene1 extends Phaser.Scene {
         this.pcb.on('pointerdown', () => {
             if(this.collisionPcb && !this.inventory.pcb.isPicked){
                 this.inventory.pcb.isPicked = true
-                this.pcb.x = customConfig.slot1.x + 73
-                this.pcb.y = customConfig.slot1.y + 5
+                this.pcb.x = customConfig.slot1.x + 70
+                this.pcb.y = customConfig.slot1.y + 3
             }
         })
     }
@@ -295,8 +297,8 @@ export class Scene1 extends Phaser.Scene {
     createController = () => {
         this.controller = this.items.create(0, 0, 'controller').setInteractive()
         this.controller.setOrigin(0,0)
-        this.controller.x = customConfig.slot1.x + 3
-        this.controller.y = customConfig.slot1.y + 10
+        this.controller.x = customConfig.slot1.x - 3
+        this.controller.y = customConfig.slot1.y + 5
         this.controller.on('pointerover', () => {
             this.controllerText = this.add.text(config.width/2, customConfig.text.y, this.inventory.controller.text, customConfig.fontText).setOrigin(0.5)
         })
@@ -340,7 +342,6 @@ export class Scene1 extends Phaser.Scene {
         })
     }
     createIcons = () => {
-        console.log(this.music)
         this.musicOff = this.add.image(0, 0, 'audio-off').setInteractive().setOrigin(0,0)
         this.musicOff.x = 30
         this.musicOff.y = 10
@@ -354,11 +355,11 @@ export class Scene1 extends Phaser.Scene {
             if(this.music.isPlaying){
                 this.music.pause()
             }else{
-                this.music.play()
+                this.music.resume()
             }
         })
         this.musicLevel = this.add.image(0, 0, 'audio-icon').setInteractive().setOrigin(0,0)
-        this.musicLevel.x = 90
+        this.musicLevel.x = 70
         this.musicLevel.y = 10
         this.musicLevel.on('pointerover', () => {
             this.musicLevel.alpha = 0.5
@@ -375,14 +376,14 @@ export class Scene1 extends Phaser.Scene {
                 this.slider.destroy()
             }
         })
-        this.inventoryIcon = this.add.image(0, 0, 'inventory')
-        this.inventoryIcon.x = 1000
-        this.inventoryIcon.y = 30
+        // this.inventoryIcon = this.add.image(0, 0, 'inventory').setOrigin(0,0)
+        // this.inventoryIcon.x = 1058
+        // this.inventoryIcon.y = 20
     }
     createSlider = () => {
         this.slider = this.rexUI.add.slider({
-            x:140,
-            y: 75,
+            x:235,
+            y: 30,
             width: 200,
             height: 15,
             orientation: 'x',

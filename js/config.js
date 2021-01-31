@@ -22,8 +22,8 @@ export const config = {
 
 export const customConfig = {
   slot1: {
-    x: 1070,
-    y: 20
+    x: 1147,
+    y: 23
   },
   text:{
     x: 300,

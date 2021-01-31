@@ -53,7 +53,7 @@ export class Intro extends Phaser.Scene {
         this.createIcons()
 
         // debugger
-        this.createDebugPointer()
+        // this.createDebugPointer()
     }
     createIcons = () => {
         console.log(this.music)
@@ -70,11 +70,11 @@ export class Intro extends Phaser.Scene {
             if(this.music.isPlaying){
                 this.music.pause()
             }else{
-                this.music.play()
+                this.music.resume()
             }
         })
         this.musicLevel = this.add.image(0, 0, 'audio-icon').setInteractive().setOrigin(0,0)
-        this.musicLevel.x = 90
+        this.musicLevel.x = 70
         this.musicLevel.y = 10
         this.musicLevel.on('pointerover', () => {
             this.musicLevel.alpha = 0.5
@@ -91,14 +91,12 @@ export class Intro extends Phaser.Scene {
                 this.slider.destroy()
             }
         })
-        this.inventoryIcon = this.add.image(0, 0, 'inventory')
-        this.inventoryIcon.x = 1000
-        this.inventoryIcon.y = 30
+
     }
 
     createSlider = () => {
         this.slider = this.rexUI.add.slider({
-            x:245,
+            x:235,
             y: 30,
             width: 200,
             height: 15,
@@ -134,6 +132,6 @@ export class Intro extends Phaser.Scene {
 
     update(){
 
-        this.updateDebugPointer()
+        // this.updateDebugPointer()
     }
 }
