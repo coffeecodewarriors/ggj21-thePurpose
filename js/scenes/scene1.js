@@ -222,8 +222,8 @@ export class Scene1 extends Phaser.Scene {
             this.pcb.y = 368
         }
         else{
-            this.pcb.x = customConfig.slot1.x + 73
-            this.pcb.y = customConfig.slot1.y + 5
+            this.pcb.x = customConfig.slot1.x + 70
+            this.pcb.y = customConfig.slot1.y + 3
             this.pcb.visible = true
             if(this.inventory.pcb.isUsed){
                 this.pcb.visible = false
@@ -265,7 +265,6 @@ export class Scene1 extends Phaser.Scene {
     }
     changeScene = () => {
         this.cameras.main.fadeOut(1000, 0, 0, 0)
-        // this.scene.stop('scene1')
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
             this.time.delayedCall(1000, () => {
                 this.scene.start('endScene')

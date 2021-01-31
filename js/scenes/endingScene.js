@@ -28,7 +28,10 @@ export class Ending extends Phaser.Scene {
         setTimeout(() => {
             this.createCredits('Adrián Casas', this.adri)
             this.createCredits('Mark Sanjuán', this.mark)
-        }, 4000)
+        }, 5000)
+        setTimeout(() => {
+            this.restartGame()
+        }, 10000)
     }
     createCredits = (text, holder) => {
         const length = text.length
@@ -40,6 +43,16 @@ export class Ending extends Phaser.Scene {
             },
             repeat: length - 1,
             delay: 300
+        })
+    }
+    restartGame = () => {
+        this.cameras.main.fadeOut(1000, 0, 0, 0)
+        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+            this.time.delayedCall(1000, () => {
+                this.scene.start('introScene', {
+                    restarted: true
+                })
+            })
         })
     }
 }

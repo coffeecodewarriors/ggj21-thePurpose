@@ -258,8 +258,8 @@ export class Scene2 extends Phaser.Scene {
         if(this.inventory.pcb.isPicked){
             this.pcb = this.items.create(0, 0, 'pcb').setInteractive().setImmovable()
             this.pcb.setOrigin(0,0)
-            this.pcb.x = customConfig.slot1.x + 73
-            this.pcb.y = customConfig.slot1.y + 5
+            this.pcb.x = customConfig.slot1.x + 70
+            this.pcb.y = customConfig.slot1.y + 3
             if(this.inventory.pcb.isUsed){
                 this.pcb.visible = false
                 return

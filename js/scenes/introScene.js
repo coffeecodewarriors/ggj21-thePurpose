@@ -6,9 +6,13 @@ export class Intro extends Phaser.Scene {
         super('introScene')
         this.inventory = {}
         this.showVolume = false
+        this.restarted = false
     }
     init = (data) => {
         this.inventory = data
+        if(data.restarted){
+            this.restarted = data.restarted
+        }
     }
     preload = () => {
         this.load.scenePlugin(
@@ -19,6 +23,10 @@ export class Intro extends Phaser.Scene {
           )
     }
     create = () => {
+        if(this.restarted){
+            this.cameras.main.fadeIn(2000, 0, 0, 0)
+        }
+
         this.introBg = this.add.tileSprite(0, 0, config.width, config.height, 'intro')
         this.introBg.setOrigin(0, 0)
         
