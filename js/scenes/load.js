@@ -22,12 +22,15 @@ export class Load extends Phaser.Scene {
     this.load.image("pcb", "../../assets/img/pcb.png")
     this.load.image("controller", "../../assets/img/controller.png")
 
-    this.load.image("this-way", "../../assets/img/this-way.gif")
+    this.load.image("arrow", "../../assets/img/this-way.gif")
 
     this.load.spritesheet("player", "../../assets/img/player-sprite.png", {
       frameWidth: 98,
       frameHeight: 229,
     })
+
+    this.load.plugin('rexbitmapzoneplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexbitmapzoneplugin.min.js', true)
+    this.load.atlas('flares', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/particles/flares/flares.png', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/particles/flares/flares.json')
 
     this.load.audio("theme", "../../assets/sound/Heuristics For The Brain - pATCHES.mp3")
     this.load.audio("playerStep", "../../assets/sound/Footstep volup.mp3")

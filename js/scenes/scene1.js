@@ -14,6 +14,7 @@ export class Scene1 extends Phaser.Scene {
         this.collisionBattery = false
         this.collisionPcb = false
         this.collisionOmatic = false
+        this.collisionPanel = false
     }
     init = (data) => {
         this.inventory = data.inventory
@@ -36,15 +37,23 @@ export class Scene1 extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         })
+        this.anims.create({
+            key: 'arrow',
+            frames: this.anims.generateFrameNumbers('arrow'),
+            repeat: -1
+        })
+        this.gif = this.add.group()
+        this.gif.playAnimation('arrow')
 
         // billboard
         this.createBillboard()
 
+        // items
+        this.items = this.physics.add.group()
+
         // control panel
         this.createControlPanel()
 
-        // items
-        this.items = this.physics.add.group()
 
         // o-matic 3000
         this.createOmatic()
@@ -109,6 +118,11 @@ export class Scene1 extends Phaser.Scene {
             this.collisionPcb = true
         })
         this.collisionPcb = false
+
+        this.physics.add.overlap(this.player, this.controlPanel, () => {
+            this.collisionPanel = true
+        })
+        this.collisionPanel = false
     }
     createBattery = () => {
         if(!this.inventory.battery.isPicked){
@@ -118,6 +132,8 @@ export class Scene1 extends Phaser.Scene {
             this.battery.y = 550
         }
         if(this.inventory.battery.isPicked){
+            this.battery = this.items.create(0, 0, 'battery').setInteractive().setImmovable()
+            this.battery.setOrigin(0,0)
             this.battery.x = customConfig.slot1.x
             this.battery.y = customConfig.slot1.y
         }
@@ -207,7 +223,7 @@ export class Scene1 extends Phaser.Scene {
         })
     }
     createControlPanel = () => {
-        this.controlPanel = this.add.image(0, 0, 'control-panel').setInteractive()
+        this.controlPanel = this.items.create(0, 0, 'control-panel').setInteractive()
         this.controlPanel.setOrigin(0, 0)
         this.controlPanel.x = 1036
         this.controlPanel.y = 315
@@ -216,6 +232,11 @@ export class Scene1 extends Phaser.Scene {
         })
         this.controlPanel.on('pointerout', () => {
             this.controlPanelText.destroy(this.controlPanelText.x, this.controlPanelText.y)
+        })
+        this.controlPanel.on('pointerdown', () => {
+            if(this.collisionPanel && this.inventory.controller.isDone){
+                this.createWords()
+            }
         })
     }
     createOmatic = () => {
@@ -262,6 +283,23 @@ export class Scene1 extends Phaser.Scene {
         })
         this.assistantZone.on('pointerout', () => {
             this.assistantText.destroy(this.assistantText.x, this.assistantText.y)
+        })
+    }
+
+    createWords = () => {
+        this.textObject = this.add.text(400, 300, 'Thecnology for Humankind', {fontSize: '100px'}).setOrigin(0.5).setVisible(false)
+        this.bitmapZone = this.plugins.get('rexbitmapzoneplugin').add(this.textObject)
+        this.particles = this.add.particles('flares').setPosition(this.textObject.x, this.textObject.y)
+        this.emitter = this.particles.createEmitter({
+            blendMode: 'ADD',
+            scale: { start: 0.1, end: 0.2},
+            quantity: 50,
+            speed: 8,
+            gravityY: -20,
+            emitZone: {
+                type: 'random',
+                source: this.bitmapZone
+            }
         })
     }
 
