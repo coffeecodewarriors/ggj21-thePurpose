@@ -44,6 +44,12 @@ export class Load extends Phaser.Scene {
     })
 
     this.load.plugin('rexbitmapzoneplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexbitmapzoneplugin.min.js', true)
+    this.load.scenePlugin(
+      'rexuiplugin',
+      'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
+      'rexUI',
+      'rexUI'
+    )
     this.load.atlas('flares', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/particles/flares/flares.png', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/particles/flares/flares.json')
 
     this.load.audio("theme", "../../assets/sound/Heuristics For The Brain - pATCHES.mp3")

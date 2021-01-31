@@ -16,6 +16,7 @@ export class Scene2 extends Phaser.Scene {
         this.collisionMicrochip = false
     }
     init = (data) => {
+        this.music = data.music
         if(data.inventory){
             this.inventory = data.inventory
         }
@@ -24,7 +25,14 @@ export class Scene2 extends Phaser.Scene {
             return
         }
     }
-    preload = () => {}
+    preload = () => {
+        this.load.scenePlugin(
+            'rexuiplugin',
+            'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
+            'rexUI',
+            'rexUI'
+          )
+    }
     create = () => {
         console.log(this)
         this.bg1 = this.add.tileSprite(0, 0, config.width, config.height, 'bg-scene1')
@@ -84,6 +92,9 @@ export class Scene2 extends Phaser.Scene {
 
         // debuger pointer
         // this.createDebugPointer()
+
+        // slider
+        this.createSlider()
     }
 
     // --- END CREATE METHOD ---
@@ -295,9 +306,26 @@ export class Scene2 extends Phaser.Scene {
         this.assistantV2Zone.on('pointerout', () => {
             this.assistantV2Text.destroy(this.assistantV2Text.x, this.assistantV2Text.y)
         })
-
-
-
+    }
+    createSlider = () => {
+        this.slider = this.rexUI.add.slider({
+            x:1000,
+            y: 150,
+            width: 200,
+            height: 20,
+            orientation: 'x',
+            track: this.rexUI.add.roundRectangle(0,0,0,0,4,0xFFFFFF),
+            thumb: this.rexUI.add.roundRectangle(0,0,0,0,10,0xC2C2C2),
+            valuechangeCallback: (value) => {
+                this.music.volume = value
+            },
+            space: {
+                top: 4,
+                bottom: 4
+            },
+            input: 'drag',
+            value: this.music.volume
+        }).layout()
     }
 
     // --- DEBUGGER ---

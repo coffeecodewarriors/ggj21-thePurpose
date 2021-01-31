@@ -67,7 +67,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 currentScene.game.scene.stop('scene2')
                 currentScene.game.scene.start('scene1', {
                     scene: 'scene2',
-                    inventory: currentScene.inventory
+                    inventory: currentScene.inventory,
+                    music: currentScene.music
                 })
                 return
             }
@@ -85,7 +86,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
                 currentScene.game.scene.stop('scene1')
                 currentScene.game.scene.start('scene2', {
                     scene: 'scene1',
-                    inventory: currentScene.inventory
+                    inventory: currentScene.inventory,
+                    music: currentScene.music
                 })
             }
         }

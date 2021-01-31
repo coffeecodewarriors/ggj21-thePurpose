@@ -17,6 +17,8 @@ export class Scene1 extends Phaser.Scene {
         this.collisionPanel = false
     }
     init = (data) => {
+        console.log(data)
+        this.music = data.music
         this.inventory = data.inventory
 
         if(data.scene === 'scene2'){
@@ -25,6 +27,12 @@ export class Scene1 extends Phaser.Scene {
         }
     }
     preload = () => {
+        this.load.scenePlugin(
+            'rexuiplugin',
+            'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
+            'rexUI',
+            'rexUI'
+          )
     }
     create = () => {
         console.log(this)
@@ -87,6 +95,9 @@ export class Scene1 extends Phaser.Scene {
 
         // debugger
         // this.createDebugPointer()
+
+        //slider
+        this.createSlider()
         
     }
     update = () => {
@@ -320,7 +331,26 @@ export class Scene1 extends Phaser.Scene {
                 source: this.bitmapZone
             }
         })
-        console.log(this.emitter)
+    }
+    createSlider = () => {
+        this.slider = this.rexUI.add.slider({
+            x:1000,
+            y: 150,
+            width: 200,
+            height: 20,
+            orientation: 'x',
+            track: this.rexUI.add.roundRectangle(0,0,0,0,4,0xFFFFFF),
+            thumb: this.rexUI.add.roundRectangle(0,0,0,0,10,0xC2C2C2),
+            valuechangeCallback: (value) => {
+                this.music.volume = value
+            },
+            space: {
+                top: 4,
+                bottom: 4
+            },
+            input: 'drag',
+            value: this.music.volume
+        }).layout()
     }
 
         // --- DEBUGGER ---

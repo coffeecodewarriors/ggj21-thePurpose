@@ -28,7 +28,7 @@ export class Ending extends Phaser.Scene {
         setTimeout(() => {
             this.createCredits('Adrián Casas', this.adri)
             this.createCredits('Mark Sanjuán', this.mark)
-        }, 3000)
+        }, 4000)
     }
     createCredits = (text, holder) => {
         const length = text.length
