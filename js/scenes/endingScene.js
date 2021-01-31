@@ -1,6 +1,11 @@
+import { inventory } from '../config.js'
+
 export class Ending extends Phaser.Scene {
     constructor(){
         super('endScene')
+    }
+    init = (data) => {
+        this.music = data.music
     }
 
     create = () => {
@@ -46,16 +51,18 @@ export class Ending extends Phaser.Scene {
         })
     }
     restartGame = () => {
-        this.replayBtn = this.add.text(50, 650, 'RESTART', {
+        this.replayBtn = this.add.text(50, 650, '', {
             font: '35px Arial',
             fill: 'white'
         }).setInteractive()
+        this.createCredits('RESTART', this.replayBtn)
         this.replayBtn.on('pointerdown', () => {
             this.cameras.main.fadeOut(1000, 0, 0, 0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
             this.time.delayedCall(1000, () => {
+                this.music.stop()
                 this.scene.start('introScene', {
-                    restarted: true
+                    restarted: true,
                 })
             })
         })

@@ -1,4 +1,4 @@
-import { config, customConfig } from "../config.js"
+import { config, customConfig, inventory } from "../config.js"
 import { Player } from "../player/player.js"
 
 export class Scene1 extends Phaser.Scene {
@@ -24,6 +24,7 @@ export class Scene1 extends Phaser.Scene {
 
         if(data.start){
             this.start = data.start
+            this.inventory = data.inventory
         }
 
         if(data.scene === 'scene2'){
@@ -40,9 +41,8 @@ export class Scene1 extends Phaser.Scene {
           )
     }
     create = () => {
-        if(this.start){
-            this.cameras.main.fadeIn(1000, 0, 0, 0)
-        }
+        this.cameras.main.fadeIn(1000, 0, 0, 0)
+        
         console.log(this)
         this.bg2 = this.add.tileSprite(0, 0, config.width, config.height, 'bg-scene2')
         this.bg2.setOrigin(0,0)
@@ -230,8 +230,8 @@ export class Scene1 extends Phaser.Scene {
             this.pcb.y = 368
         }
         else{
-            this.pcb.x = customConfig.slot1.x + 70
-            this.pcb.y = customConfig.slot1.y + 3
+            this.pcb.x = customConfig.slot1.x + 67
+            this.pcb.y = customConfig.slot1.y + 1
             this.pcb.visible = true
             if(this.inventory.pcb.isUsed){
                 this.pcb.visible = false
@@ -248,8 +248,8 @@ export class Scene1 extends Phaser.Scene {
         this.pcb.on('pointerdown', () => {
             if(this.collisionPcb && !this.inventory.pcb.isPicked){
                 this.inventory.pcb.isPicked = true
-                this.pcb.x = customConfig.slot1.x + 70
-                this.pcb.y = customConfig.slot1.y + 3
+                this.pcb.x = customConfig.slot1.x + 67
+                this.pcb.y = customConfig.slot1.y + 1
             }
         })
     }
@@ -275,7 +275,9 @@ export class Scene1 extends Phaser.Scene {
         this.cameras.main.fadeOut(1000, 0, 0, 0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
             this.time.delayedCall(1000, () => {
-                this.scene.start('endScene')
+                this.scene.start('endScene',{
+                    music: this.music
+                })
             })
         })
     }

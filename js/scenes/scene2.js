@@ -34,6 +34,7 @@ export class Scene2 extends Phaser.Scene {
           )
     }
     create = () => {
+        this.cameras.main.fadeIn(1000,0,0,0)
         console.log(this)
         this.bg1 = this.add.tileSprite(0, 0, config.width, config.height, 'bg-scene1')
         this.bg1.setOrigin(0,0)
@@ -258,8 +259,8 @@ export class Scene2 extends Phaser.Scene {
         if(this.inventory.pcb.isPicked){
             this.pcb = this.items.create(0, 0, 'pcb').setInteractive().setImmovable()
             this.pcb.setOrigin(0,0)
-            this.pcb.x = customConfig.slot1.x + 70
-            this.pcb.y = customConfig.slot1.y + 3
+            this.pcb.x = customConfig.slot1.x + 67
+            this.pcb.y = customConfig.slot1.y + 1
             if(this.inventory.pcb.isUsed){
                 this.pcb.visible = false
                 return

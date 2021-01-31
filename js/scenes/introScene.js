@@ -12,7 +12,9 @@ export class Intro extends Phaser.Scene {
         this.inventory = data
         if(data.restarted){
             this.restarted = data.restarted
+            
         }
+        this.music = data.music
     }
     preload = () => {
         this.load.scenePlugin(
@@ -23,9 +25,7 @@ export class Intro extends Phaser.Scene {
           )
     }
     create = () => {
-        if(this.restarted){
             this.cameras.main.fadeIn(2000, 0, 0, 0)
-        }
 
         this.introBg = this.add.tileSprite(0, 0, config.width, config.height, 'intro')
         this.introBg.setOrigin(0, 0)
@@ -45,7 +45,7 @@ export class Intro extends Phaser.Scene {
         this.startBtn.on('pointerout', () => {
             this.startBtn.alpha = 1
         })
-        this.title = this.add.text(150, 50, 'The Purpose', {
+        this.title = this.add.text(50, 80, 'The Purpose', {
             font: '40px Arial',
             fill: 'white'
         })
@@ -68,7 +68,7 @@ export class Intro extends Phaser.Scene {
     changeScene = () => {
         this.cameras.main.fadeOut(1000, 0, 0, 0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
-                this.scene.start('scene1', { inventory, music: this.music, start: true })
+                this.scene.start('scene1', { inventory, music: this.music })
             
         })
     }
