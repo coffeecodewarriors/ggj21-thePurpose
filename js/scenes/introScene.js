@@ -4,14 +4,25 @@ import { config, customConfig } from '../config.js'
 export class Intro extends Phaser.Scene {
     constructor(){
         super('introScene')
-        this.inventory = {}
+        this.inventory = inventory
         this.showVolume = false
         this.restarted = false
     }
     init = (data) => {
-        this.inventory = data
+        // this.inventory = data
         if(data.restarted){
             this.restarted = data.restarted
+            this.inventory.battery.isPicked = false
+            this.inventory.battery.isUsed = false
+            this.inventory.microchip.isPicked = false
+            this.inventory.microchip.isUsed = false
+            this.inventory.microchip.isShowed = false
+            this.inventory.light.isOn = false
+            this.inventory.pcb.isPicked = false
+            this.inventory.pcb.isUsed = false
+            this.inventory.controller.isPicked = true
+            this.inventory.controller.isUsed = false
+            this.inventory.controller.isDone = false
             
         }
         this.music = data.music
@@ -25,6 +36,7 @@ export class Intro extends Phaser.Scene {
           )
     }
     create = () => {
+        console.log(this.inventory)
             this.cameras.main.fadeIn(2000, 0, 0, 0)
 
         this.introBg = this.add.tileSprite(0, 0, config.width, config.height, 'intro')
@@ -68,12 +80,16 @@ export class Intro extends Phaser.Scene {
     changeScene = () => {
         this.cameras.main.fadeOut(1000, 0, 0, 0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
-                this.scene.start('scene1', { inventory, music: this.music })
+                this.scene.start('scene1', {
+                    inventory,
+                    music: this.music, 
+                    restarted: this.restarted,
+                    scene: 'introScene'
+                  })
             
         })
     }
     createIcons = () => {
-        console.log(this.music)
         this.musicOff = this.add.image(0, 0, 'audio-off').setInteractive().setOrigin(0,0)
         this.musicOff.x = 30
         this.musicOff.y = 10

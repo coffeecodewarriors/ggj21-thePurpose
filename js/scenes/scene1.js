@@ -15,16 +15,16 @@ export class Scene1 extends Phaser.Scene {
         this.collisionPcb = false
         this.collisionOmatic = false
         this.collisionPanel = false
-        this.start = false
+        this.resstarted = false
     }
     init = (data) => {
         console.log(data)
         this.music = data.music
         this.inventory = data.inventory
 
-        if(data.start){
-            this.start = data.start
-            this.inventory = data.inventory
+        if(data.restarted){
+            this.configPlayer.x = config.width/2 + 150
+            return
         }
 
         if(data.scene === 'scene2'){
