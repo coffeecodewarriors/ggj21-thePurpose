@@ -48,13 +48,13 @@ export class Intro extends Phaser.Scene {
           // this.sound.add("playerStep");
           this.music.play();
         this.slider = this.rexUI.add.slider({
-            x:200,
-            y: 300,
+            x:140,
+            y: 20,
             width: 200,
-            height: 20,
+            height: 15,
             orientation: 'x',
             track: this.rexUI.add.roundRectangle(0,0,0,0,4,0xFFFFFF),
-            thumb: this.rexUI.add.roundRectangle(0,0,0,0,10,0xC2C2C2),
+            thumb: this.rexUI.add.roundRectangle(0,0,0,0,8,0xC2C2C2),
             valuechangeCallback: (value) => {
                 this.music.volume = value
             },
@@ -65,7 +65,28 @@ export class Intro extends Phaser.Scene {
             input: 'drag',
             value: this.music.volume
         }).layout()
+
+        // debugger
+        // this.createDebugPointer()
     }
+
+        // --- DEBUGGER ---
+        createDebugPointer = () => {
+            this.debugText = this.add.text(10, 10, '', {
+                font: '16px Courier',
+                fill: 'red'
+            })
+        }
+        updateDebugPointer = () => {
+            let p = this.input.activePointer
+            this.debugText.setText([
+                'x: ' + p.x,
+                'y: ' + p.y
+            ])
+        }
+
     update(){
+
+        // this.updateDebugPointer()
     }
 }

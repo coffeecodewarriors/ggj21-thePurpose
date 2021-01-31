@@ -113,8 +113,15 @@ export class Scene1 extends Phaser.Scene {
         this.physics.world.on('worldbounds', () => {
             this.player.stopPlayer()
         })
-        this.input.on('pointerdown', this.player.movePlayer, this)
         this.pointer = this.input.mousePointer
+        this.input.on('pointerdown', () => {
+            if(this.pointer.y > 350){
+                this.player.movePlayer()
+            }
+        }, this)
+        // if(this.pointer.y > 250){
+        //     this.input.on('pointerdown', this.player.movePlayer, this)
+        // }
     }
     createColliders = () => {
         this.physics.add.collider(this.player, this.omatic, () => {
@@ -334,13 +341,13 @@ export class Scene1 extends Phaser.Scene {
     }
     createSlider = () => {
         this.slider = this.rexUI.add.slider({
-            x:1000,
-            y: 150,
+            x:140,
+            y: 20,
             width: 200,
-            height: 20,
+            height: 15,
             orientation: 'x',
             track: this.rexUI.add.roundRectangle(0,0,0,0,4,0xFFFFFF),
-            thumb: this.rexUI.add.roundRectangle(0,0,0,0,10,0xC2C2C2),
+            thumb: this.rexUI.add.roundRectangle(0,0,0,0,8,0xC2C2C2),
             valuechangeCallback: (value) => {
                 this.music.volume = value
             },

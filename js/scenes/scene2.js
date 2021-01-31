@@ -312,10 +312,10 @@ export class Scene2 extends Phaser.Scene {
             x:1000,
             y: 150,
             width: 200,
-            height: 20,
+            height: 15,
             orientation: 'x',
             track: this.rexUI.add.roundRectangle(0,0,0,0,4,0xFFFFFF),
-            thumb: this.rexUI.add.roundRectangle(0,0,0,0,10,0xC2C2C2),
+            thumb: this.rexUI.add.roundRectangle(0,0,0,0,8,0xC2C2C2),
             valuechangeCallback: (value) => {
                 this.music.volume = value
             },
