@@ -9,6 +9,7 @@ export class Load extends Phaser.Scene {
     this.load.image("bg-scene2", "../../assets/img/scene-1-bg.png")
     this.load.image("ui", "../../assets/img/UI.png")
     this.load.image("intro", "../../assets/img/intro-scene-bg.png")
+    this.load.image('inventory', '../../assets/img/inventory-icon.png')
 
     this.load.image("robot", "../../assets/img/robot.png")
     this.load.image("robot-light", "../../assets/img/robot-light.png")
@@ -55,15 +56,18 @@ export class Load extends Phaser.Scene {
     this.load.audio("theme", "../../assets/sound/Heuristics For The Brain - pATCHES.mp3")
     this.load.audio("playerStep", "../../assets/sound/Footstep volup.mp3")
     this.load.audio('playerStep2', '../../assets/sound/footsep.mp3')
+
+    this.load.image('audio-icon', '../../assets/img/audio-icon.png')
+    this.load.image('audio-off', '../../assets/img/audio-off-icon.png')
   }
   create = () => {
     this.add.text(20, 20, "Loading game...");
     this.scene.start("introScene");
-    this.music = this.sound.add("theme", {
-      loop: true,
-      volume: 0.2
-    });
+    // this.music = this.sound.add("theme", {
+    //   loop: true,
+    //   volume: 0.2
+    // });
     // this.sound.add("playerStep");
-    this.music.play();
+    // this.music.play();
   }
 }

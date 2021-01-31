@@ -94,7 +94,7 @@ export class Scene2 extends Phaser.Scene {
         // this.createDebugPointer()
 
         // slider
-        this.createSlider()
+        this.createIcons()
     }
 
     // --- END CREATE METHOD ---
@@ -311,10 +311,50 @@ export class Scene2 extends Phaser.Scene {
             this.assistantV2Text.destroy(this.assistantV2Text.x, this.assistantV2Text.y)
         })
     }
+    createIcons = () => {
+        console.log(this.music)
+        this.musicOff = this.add.image(0, 0, 'audio-off').setInteractive().setOrigin(0,0)
+        this.musicOff.x = 30
+        this.musicOff.y = 10
+        this.musicOff.on('pointerover', () => {
+            this.musicOff.alpha = 0.5
+        })
+        this.musicOff.on('pointerout', () => {
+            this.musicOff.alpha = 1
+        })
+        this.musicOff.on('pointerdown', () => {
+            if(this.music.isPlaying){
+                this.music.pause()
+            }else{
+                this.music.play()
+            }
+        })
+        this.musicLevel = this.add.image(0, 0, 'audio-icon').setInteractive().setOrigin(0,0)
+        this.musicLevel.x = 90
+        this.musicLevel.y = 10
+        this.musicLevel.on('pointerover', () => {
+            this.musicLevel.alpha = 0.5
+        })
+        this.musicLevel.on('pointerout', () => {
+            this.musicLevel.alpha = 1
+        })
+        this.musicLevel.on('pointerdown', () => {
+            if(!this.showVolume){
+                this.showVolume = true
+                this.createSlider()
+            }else{
+                this.showVolume = false
+                this.slider.destroy()
+            }
+        })
+        this.inventoryIcon = this.add.image(0, 0, 'inventory')
+        this.inventoryIcon.x = 1000
+        this.inventoryIcon.y = 30
+    }
     createSlider = () => {
         this.slider = this.rexUI.add.slider({
-            x:1000,
-            y: 150,
+            x:140,
+            y: 75,
             width: 200,
             height: 15,
             orientation: 'x',
