@@ -13,14 +13,14 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
         if(this.scene.pointer.isDown && isMoving === true){
             if(this.walk.isPlaying){
-                this.walk.pause()
+                this.walk.stop()
+                return
             }
             this.scene.target.x = this.scene.pointer.x
             this.scene.target.y = this.scene.pointer.y
             this.scene.player.play('playerAnim')
             this.scene.physics.moveToObject(this.scene.player, this.scene.target, 200)
-            this.walk.play()
-            console.log(this.walk.isPlaying)
+            // this.walk.play()
         }
         if(this.scene.pointer.x > this.scene.player.x){
             this.scene.player.scaleX = 1

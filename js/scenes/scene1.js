@@ -96,7 +96,6 @@ export class Scene1 extends Phaser.Scene {
     }
     createPlayer = () => {
         this.player = this.physics.add.existing(new Player(this.configPlayer))
-        console.log(this.player)
         this.player.body.setCollideWorldBounds(true)
         this.player.body.setBoundsRectangle(new Phaser.Geom.Rectangle(20, 250, 1280, 720))
         this.player.body.onWorldBounds = true
@@ -240,7 +239,8 @@ export class Scene1 extends Phaser.Scene {
         this.controlPanel.on('pointerdown', () => {
             if(this.collisionPanel && this.inventory.controller.isDone){
                 this.controller.visible = false
-                this.createWords()
+                this.scene.stop('scene1')
+                this.scene.start('endScene')
             }
         })
     }

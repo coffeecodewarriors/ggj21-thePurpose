@@ -26,6 +26,18 @@ export class Load extends Phaser.Scene {
     this.load.image("arrow2", "../../assets/img/this-way-2.png")
     this.load.image("arrow3", "../../assets/img/this-way-3.png")
 
+    this.load.image('final1', '../../assets/img/final-1.png')
+    this.load.image('final2', '../../assets/img/final-2.png')
+    this.load.image('final3', '../../assets/img/final-3.png')
+    this.load.image('final4', '../../assets/img/final-4.png')
+    this.load.image('final5', '../../assets/img/final-5.png')
+    this.load.image('final6', '../../assets/img/final-6.png')
+    this.load.image('final7', '../../assets/img/final-7.png')
+    this.load.image('final8', '../../assets/img/final-8.png')
+    this.load.image('final9', '../../assets/img/final-9.png')
+    this.load.image('final10', '../../assets/img/final-10.png')
+
+
     this.load.spritesheet("player", "../../assets/img/player-sprite.png", {
       frameWidth: 98,
       frameHeight: 229,
