@@ -38,56 +38,56 @@ export const customConfig = {
 }
 
 export const inventory = {
-  robot:{
-    text: `I used this robot as a portable medium to provide light where it was needed. It has a big lens in the middle`
+  robot: {
+    text: `I used this robot as a portable medium to provide light where it was needed. It has a large lens in the middle.`,
   },
-  laptop:{
-    text: `An old laptot. Need some battery...`
+  laptop: {
+    text: `An old laptop connected to the robot. It seems off.`,
   },
-  battery:{
-    text: `A battery`,
+  battery: {
+    text: `It looks like a battery. It could be useful for something...`,
     isPicked: false,
-    isUsed: false
+    isUsed: false,
   },
   microchip: {
-    text: 'A microchip. It was hidden in the dark...',
+    text: "It's a microchip. It was hidden in the dark...",
     isPicked: false,
     isUsed: false,
-    isShowed: false
+    isShowed: false,
   },
   light: {
-    isOn: false
+    isOn: false,
   },
   pcb: {
-    text: `A small PCB board hangs on a billboard...`,
+    text: `A small PCB board hangs on a hook.`,
     isPicked: false,
-    isUsed: false
+    isUsed: false,
   },
   controller: {
-    text: `A fully and operational controller`,
+    text: `A fully and operational controller.`,
     isPicked: true,
     isUsed: false,
-    isDone: false
+    isDone: false,
   },
   billboard: {
-    text: `My old billboard... it's broken. I no longer remember what it advertised`
+    text: `My old billboard... it's broken. I no longer remember what it advertised.`,
   },
   controlPanel: {
-    text: `It's the control panel of the billboard. Controller is missing...`
+    text: `It's the control panel of the billboard. Controller is missing...`,
   },
-  omatic:{
-    text: `Control-O-matic 3000: Print PCBs and integrate chips easily`
+  omatic: {
+    text: `"Control-O-Matic 3000: Print PCBs and integrate chips easily."`,
   },
   depuradora: {
-    text: `"I invented that compact treatment plant to supply water to small needy populations"`
+    text: `I invented that compact treatment plant to supply water to small needy populations.`,
   },
-  assistantV2:{
-    text: `Asistant-O matic v2: with this assistant I wanted to facilitate housework for disable people`
+  assistantV2: {
+    text: `Assistant-O-Matic v2: wMatichis assistant I wanted to facilitate housework for disable people.`,
   },
   robofriend: {
-    text: `It was programmed with various game dynamics to cheer up the children in the hospital`
+    text: `"Robofriend" It was programmed with various game dynamics to cheer up the children in the hospital.`,
   },
   assistant: {
-    text: `I was working on an early disease detection assistant... but i quit`
-  }
+    text: `I was working on an early disease detection assistant... but i quit.`,
+  },
 };
