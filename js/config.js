@@ -82,7 +82,7 @@ export const inventory = {
     text: `I invented that compact treatment plant to supply water to small needy populations.`,
   },
   assistantV2: {
-    text: `Assistant-O-Matic v2: wMatichis assistant I wanted to facilitate housework for disable people.`,
+    text: `Assistant-O-Matic v2: With this assistant I wanted to facilitate household chores for people with disabilities.`,
   },
   robofriend: {
     text: `"Robofriend" It was programmed with various game dynamics to cheer up the children in the hospital.`,
