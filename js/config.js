@@ -52,7 +52,8 @@ export const inventory = {
   microchip: {
     text: 'A microchip. It was hidden in the dark...',
     isPicked: false,
-    isUsed: false
+    isUsed: false,
+    isShowed: false
   },
   light: {
     isOn: false

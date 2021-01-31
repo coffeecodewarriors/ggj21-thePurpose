@@ -37,14 +37,7 @@ export class Scene1 extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         })
-        this.anims.create({
-            key: 'arrow',
-            frames: this.anims.generateFrameNumbers('arrow'),
-            repeat: -1
-        })
-        this.gif = this.add.group()
-        this.gif.playAnimation('arrow')
-
+        
         // billboard
         this.createBillboard()
 
@@ -235,6 +228,7 @@ export class Scene1 extends Phaser.Scene {
         })
         this.controlPanel.on('pointerdown', () => {
             if(this.collisionPanel && this.inventory.controller.isDone){
+                this.controller.visible = false
                 this.createWords()
             }
         })
@@ -266,6 +260,12 @@ export class Scene1 extends Phaser.Scene {
         this.controller.setOrigin(0,0)
         this.controller.x = customConfig.slot1.x + 3
         this.controller.y = customConfig.slot1.y + 10
+        this.controller.on('pointerover', () => {
+            this.controllerText = this.add.text(config.width/2, customConfig.text.y, this.inventory.controller.text, customConfig.fontText).setOrigin(0.5)
+        })
+        this.controller.on('pointerout', () => {
+            this.controllerText.destroy(this.controllerText.x, this.controllerText.y)
+        })
     }
 
     createPolygons = () => {
@@ -287,20 +287,21 @@ export class Scene1 extends Phaser.Scene {
     }
 
     createWords = () => {
-        this.textObject = this.add.text(400, 300, 'Thecnology for Humankind', {fontSize: '100px'}).setOrigin(0.5).setVisible(false)
+        this.textObject = this.add.text(600, 240, ' Thecnology for Humankind', {fontSize: '55px'}).setOrigin(0.5).setVisible(false)
         this.bitmapZone = this.plugins.get('rexbitmapzoneplugin').add(this.textObject)
         this.particles = this.add.particles('flares').setPosition(this.textObject.x, this.textObject.y)
         this.emitter = this.particles.createEmitter({
             blendMode: 'ADD',
-            scale: { start: 0.1, end: 0.2},
-            quantity: 50,
-            speed: 8,
-            gravityY: -20,
+            scale: { start: 0.01, end: 0.03},
+            quantity: 300,
+            speed: 2,
+            gravityY: -10,
             emitZone: {
                 type: 'random',
                 source: this.bitmapZone
             }
         })
+        console.log(this.emitter)
     }
 
         // --- DEBUGGER ---
