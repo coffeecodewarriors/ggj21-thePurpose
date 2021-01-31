@@ -239,9 +239,17 @@ export class Scene1 extends Phaser.Scene {
         this.controlPanel.on('pointerdown', () => {
             if(this.collisionPanel && this.inventory.controller.isDone){
                 this.controller.visible = false
-                this.scene.stop('scene1')
-                this.scene.start('endScene')
+                this.changeScene()
             }
+        })
+    }
+    changeScene = () => {
+        this.cameras.main.fadeOut(1000, 0, 0, 0)
+        // this.scene.stop('scene1')
+        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+            this.time.delayedCall(1000, () => {
+                this.scene.start('endScene')
+            })
         })
     }
     createOmatic = () => {
