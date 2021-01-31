@@ -15,7 +15,7 @@ export const config = {
     default: "arcade",
     arcade: {
       gravity: { y: 0 },
-      debug: true,
+      // debug: true,
     },
   },
 };
@@ -34,6 +34,22 @@ export const customConfig = {
     fill: 'white',
     boundsAlignH: 'center',
     boundsAlignV: 'center'
+  },
+  introText: {
+    text: [
+      'The once passionate inventor was comletely alone.',
+      'Lost, he was no longer even able to remember what',
+      'was his motivation for inventing all those gadgets.',
+      'Now he wanders in the dark, in an attempt to remember',
+      'what his purpose is...'
+    ],
+    font:{
+      font: '23px Arial',
+      fill: 'grey',
+      lineSpacing: 10,
+      boundsAlignH: 'center',
+      boundsAlignV: 'center'
+    }
   }
 }
 

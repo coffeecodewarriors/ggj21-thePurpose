@@ -23,8 +23,8 @@ export class Ending extends Phaser.Scene {
         })
         this.cameras.main.fadeIn(2000, 0, 0, 0)
         this.ending = this.add.sprite(0, 0, 'ending').setOrigin(0,0).play('ending')
-        this.adri = this.add.text(750, 625, '', {font: '23px Arial', fill: 'white'})
-        this.mark = this.add.text(750, 660, '', {font: '23px Arial', fill: 'white'})
+        this.adri = this.add.text(1000, 625, '', {font: '23px Arial', fill: 'white'})
+        this.mark = this.add.text(1000, 660, '', {font: '23px Arial', fill: 'white'})
         setTimeout(() => {
             this.createCredits('Adrián Casas', this.adri)
             this.createCredits('Mark Sanjuán', this.mark)
@@ -46,7 +46,12 @@ export class Ending extends Phaser.Scene {
         })
     }
     restartGame = () => {
-        this.cameras.main.fadeOut(1000, 0, 0, 0)
+        this.replayBtn = this.add.text(50, 650, 'RESTART', {
+            font: '35px Arial',
+            fill: 'white'
+        }).setInteractive()
+        this.replayBtn.on('pointerdown', () => {
+            this.cameras.main.fadeOut(1000, 0, 0, 0)
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
             this.time.delayedCall(1000, () => {
                 this.scene.start('introScene', {
@@ -54,5 +59,13 @@ export class Ending extends Phaser.Scene {
                 })
             })
         })
+        })
+        this.replayBtn.on('pointerover', () => {
+            this.replayBtn.alpha = 0.5
+        })
+        this.replayBtn.on('pointerout', () => {
+            this.replayBtn.alpha = 1
+        })
+        
     }
 }

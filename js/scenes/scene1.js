@@ -15,11 +15,16 @@ export class Scene1 extends Phaser.Scene {
         this.collisionPcb = false
         this.collisionOmatic = false
         this.collisionPanel = false
+        this.start = false
     }
     init = (data) => {
         console.log(data)
         this.music = data.music
         this.inventory = data.inventory
+
+        if(data.start){
+            this.start = data.start
+        }
 
         if(data.scene === 'scene2'){
             this.configPlayer.x = 1150
@@ -35,6 +40,9 @@ export class Scene1 extends Phaser.Scene {
           )
     }
     create = () => {
+        if(this.start){
+            this.cameras.main.fadeIn(1000, 0, 0, 0)
+        }
         console.log(this)
         this.bg2 = this.add.tileSprite(0, 0, config.width, config.height, 'bg-scene2')
         this.bg2.setOrigin(0,0)

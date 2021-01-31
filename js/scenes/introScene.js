@@ -35,8 +35,9 @@ export class Intro extends Phaser.Scene {
             fill: 'white'
         }).setInteractive()
         this.startBtn.on('pointerdown', () => {
-            this.scene.stop('introScene')
-            this.scene.start('scene1', { inventory, music: this.music })
+            // this.scene.stop('introScene')
+            this.changeScene()
+            // this.scene.start('scene1', { inventory, music: this.music })
         })
         this.startBtn.on('pointerover', () => {
             this.startBtn.alpha = 0.5
@@ -48,7 +49,7 @@ export class Intro extends Phaser.Scene {
             font: '40px Arial',
             fill: 'white'
         })
-        this.explanation = this.add.text(150, 150, 'Lorem Impsum', customConfig.fontText)
+        this.explanation = this.add.text(50, 150, customConfig.introText.text, customConfig.introText.font)
         
         this.music = this.sound.add("theme", {
             loop: true,
@@ -62,6 +63,14 @@ export class Intro extends Phaser.Scene {
 
         // debugger
         // this.createDebugPointer()
+    }
+
+    changeScene = () => {
+        this.cameras.main.fadeOut(1000, 0, 0, 0)
+        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
+                this.scene.start('scene1', { inventory, music: this.music, start: true })
+            
+        })
     }
     createIcons = () => {
         console.log(this.music)
