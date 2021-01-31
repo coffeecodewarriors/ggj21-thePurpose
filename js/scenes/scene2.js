@@ -113,9 +113,13 @@ export class Scene2 extends Phaser.Scene {
         this.physics.world.on('worldbounds', () => {
             this.player.stopPlayer()
         },this)
-        this.input.on('pointerdown', this.player.movePlayer, this)
+        // this.input.on('pointerdown', this.player.movePlayer, this)
         this.pointer = this.input.mousePointer
-        console.log(this.player)
+        this.input.on('pointerdown', () => {
+            if(this.pointer.y > 350){
+                this.player.movePlayer()
+            }
+        })
     }
 
     createColliders = () => {
